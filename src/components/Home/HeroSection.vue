@@ -2,10 +2,9 @@
   <section class="home">
     <swiper-container
       slides-per-view="1"
-      speed="300"
+      speed="500"
       effect="fade"
       autoplay="true"
-      loop="true"
       @slidechangetransitionstart="onSlideChangeTransitionStart()"
       @slidechangetransitionend="onSlideChangeTransitionEnd()"
       class="swiper"
@@ -125,8 +124,8 @@ AOS.init();
 
 export default {
   name: "HomeView",
-  methods: {
-    onSlideChangeTransitionStart() {
+  setup() {
+    const onSlideChangeTransitionStart = () => {
       $(".home .swiper .sub__title").hide(0);
       $(".home .swiper .sub__title")
         .removeClass("aos-init")
@@ -147,15 +146,20 @@ export default {
       $(".home .swiper  button")
         .removeClass("aos-init")
         .removeClass("aos-animate");
-    },
-    onSlideChangeTransitionEnd() {
+    };
+    const onSlideChangeTransitionEnd = () => {
       $(".home .swiper .sub__title").show(0);
       $(".home .swiper .title").show(0);
       $(".home .swiper .text").show(0);
       $(".home .swiper .price").show(0);
       $(".home .swiper  button").show(0);
       AOS.init();
-    },
+    };
+
+    return {
+      onSlideChangeTransitionStart,
+      onSlideChangeTransitionEnd,
+    };
   },
 };
 </script>
@@ -200,7 +204,7 @@ export default {
   font-size: 16px;
 }
 .home .swiper .swiper__slide .slide__info .container .title {
-  margin-top: 8px;
+  margin-top: 12px;
   font-size: 36px;
   line-height: 64px;
   letter-spacing: 3px;

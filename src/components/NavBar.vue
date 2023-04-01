@@ -8,9 +8,9 @@
         <ul class="menu">
           <li>Home</li>
           <li>Makeup</li>
-          <li>Contact</li>
-          <li>Home</li>
-          <li>Makeup</li>
+          <li>Skincare</li>
+          <li>Fragrance</li>
+          <li>Body</li>
           <li>Contact</li>
         </ul>
         <div class="icons">
@@ -64,10 +64,11 @@ nav .container .logo .logo__icon {
 nav .container .menu {
   display: flex;
   gap: 40px;
-  font-weight: 500;
 }
 
 nav .container .menu li {
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
 }
 

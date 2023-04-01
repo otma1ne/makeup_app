@@ -61,6 +61,7 @@ export default {
 /* Global styles */
 
 .primary__btn {
+  position: relative;
   padding: 10px 24px;
   border: 2px solid black;
   text-transform: uppercase;
@@ -68,9 +69,12 @@ export default {
   width: max-content;
   font-weight: 500;
   cursor: pointer;
+  overflow: hidden;
+  transition: 0.3s ease-in-out;
 }
 
 .secondary__btn {
+  position: relative;
   padding: 10px 24px;
   border: 2px solid white;
   color: white;
@@ -79,5 +83,45 @@ export default {
   width: max-content;
   font-weight: 500;
   cursor: pointer;
+  overflow: hidden;
+  transition: 0.3s ease-in-out;
+}
+
+.primary__btn::after,
+.secondary__btn::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  left: 0;
+  bottom: -100%;
+  transition: 0.2s ease-in-out;
+  z-index: -1;
+}
+
+.primary__btn::after {
+  background: black;
+}
+
+.primary__btn:hover {
+  color: white;
+}
+
+.secondary__btn::after {
+  background: white;
+}
+
+.secondary__btn:hover {
+  color: black;
+}
+
+.primary__btn:hover:after,
+.secondary__btn:hover:after {
+  bottom: 0;
+}
+
+input[type="text"] {
+  padding: 10px 24px;
 }
 </style>
