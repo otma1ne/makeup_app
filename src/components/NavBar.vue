@@ -2,9 +2,12 @@
   <nav>
     <div class="max__width">
       <div class="container">
-        <div class="logo">
-          <logo class="logo__icon" />
-        </div>
+        <router-link :to="{ name: 'home' }">
+          <div class="logo">
+            <logo class="logo__icon" />
+          </div>
+        </router-link>
+
         <ul class="menu">
           <li>Home</li>
           <li>Makeup</li>

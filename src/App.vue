@@ -1,20 +1,18 @@
 <template>
   <div id="app">
-    <!-- <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-     -->
     <NavBar />
     <router-view />
+    <FooterSection />
   </div>
 </template>
 <script>
 import NavBar from "./components/NavBar.vue";
+import FooterSection from "./components/FooterSection.vue";
 
 export default {
   components: {
     NavBar,
+    FooterSection,
   },
 };
 </script>
@@ -35,6 +33,7 @@ export default {
   font-family: "Prompt", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  outline: none;
 }
 
 .max__width {
@@ -123,5 +122,21 @@ export default {
 
 input[type="text"] {
   padding: 10px 24px;
+}
+
+select {
+  position: relative;
+  padding: 10px 60px 10px 10px;
+  color: var(--textColor);
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid var(--textColor);
+}
+
+select {
+  background-image: url(@/assets/images/chevron\ down.png);
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 8px) center;
 }
 </style>

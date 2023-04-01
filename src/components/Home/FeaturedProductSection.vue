@@ -18,33 +18,36 @@
           speed="500"
           class="swiper"
         >
-          <swiper-slide
-            ><ProductCardVue
+          <swiper-slide>
+            <ProductCard
               :product="{
                 name: 'Fantastic Rubber Knife',
                 category: 'Makeup',
                 price: '11.56',
                 image: '23_1-460x460.png',
               }"
-          /></swiper-slide>
-          <swiper-slide
-            ><ProductCardVue
+            />
+          </swiper-slide>
+          <swiper-slide>
+            <ProductCard
               :product="{
                 name: 'Fantastic Rubber Knife',
                 category: 'Makeup',
                 price: '11.56',
                 image: '24_1-460x460.png',
               }"
-          /></swiper-slide>
+            />
+          </swiper-slide>
           <swiper-slide
-            ><ProductCardVue
+            ><ProductCard
               :product="{
                 name: 'Fantastic Rubber Knife',
                 category: 'Makeup',
                 price: '11.56',
                 image: '23_1-460x460.png',
               }"
-          /></swiper-slide>
+            />
+          </swiper-slide>
         </swiper-container>
       </div>
     </div>
@@ -53,12 +56,12 @@
 
 <script>
 import { register } from "swiper/element/bundle";
-import ProductCardVue from "../ProductCard.vue";
+import ProductCard from "../ProductCard.vue";
 
 register();
 export default {
   components: {
-    ProductCardVue,
+    ProductCard,
   },
 };
 </script>

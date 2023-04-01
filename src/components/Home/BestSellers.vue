@@ -6,7 +6,7 @@
         <div class="main__title">Best Sellers</div>
       </div>
       <div class="product__container">
-        <ProductCardVue
+        <ProductCard
           :product="{
             name: 'Fantastic Rubber Knife',
             category: 'Makeup',
@@ -14,7 +14,7 @@
             image: '23_1-460x460.png',
           }"
         />
-        <ProductCardVue
+        <ProductCard
           :product="{
             name: 'Fantastic Rubber Knife',
             category: 'Makeup',
@@ -22,7 +22,7 @@
             image: '24_1-460x460.png',
           }"
         />
-        <ProductCardVue
+        <ProductCard
           :product="{
             name: 'Fantastic Rubber Knife',
             category: 'Makeup',
@@ -30,7 +30,7 @@
             image: '23_1-460x460.png',
           }"
         />
-        <ProductCardVue
+        <ProductCard
           :product="{
             name: 'Fantastic Rubber Knife',
             category: 'Makeup',
@@ -38,7 +38,7 @@
             image: '24_1-460x460.png',
           }"
         />
-        <ProductCardVue
+        <ProductCard
           :product="{
             name: 'Fantastic Rubber Knife',
             category: 'Makeup',
@@ -46,7 +46,7 @@
             image: '23_1-460x460.png',
           }"
         />
-        <ProductCardVue
+        <ProductCard
           :product="{
             name: 'Fantastic Rubber Knife',
             category: 'Makeup',
@@ -54,7 +54,7 @@
             image: '24_1-460x460.png',
           }"
         />
-        <ProductCardVue
+        <ProductCard
           :product="{
             name: 'Fantastic Rubber Knife',
             category: 'Makeup',
@@ -62,7 +62,7 @@
             image: '23_1-460x460.png',
           }"
         />
-        <ProductCardVue
+        <ProductCard
           :product="{
             name: 'Fantastic Rubber Knife',
             category: 'Makeup',
@@ -72,18 +72,26 @@
         />
       </div>
       <div class="button__container">
-        <button class="primary__btn">View All Product</button>
+        <button class="primary__btn" @click="navigateToShop">
+          View All Product
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import ProductCardVue from "../ProductCard.vue";
+import router from "@/router";
+import ProductCard from "../ProductCard.vue";
 
 export default {
   components: {
-    ProductCardVue,
+    ProductCard,
+  },
+  methods: {
+    navigateToShop() {
+      router.push({ name: "shop" });
+    },
   },
 };
 </script>

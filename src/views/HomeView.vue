@@ -7,7 +7,6 @@
     <CategorySectionVue />
     <BrandSectionVue />
     <TestimonialsSectionVue />
-    <FooterSection />
   </div>
 </template>
 
@@ -17,7 +16,6 @@ import AboutSectionVue from "@/components/Home/AboutSection.vue";
 import FeaturedProductSectionVue from "@/components/Home/FeaturedProductSection.vue";
 import BestSellersVue from "@/components/Home/BestSellers.vue";
 import CategorySectionVue from "@/components/Home/CategorySection.vue";
-import FooterSection from "@/components/Home/FooterSection.vue";
 import BrandSectionVue from "@/components/Home/BrandSection.vue";
 import TestimonialsSectionVue from "@/components/Home/TestimonialsSection.vue";
 
@@ -27,7 +25,6 @@ export default {
     AboutSectionVue,
     FeaturedProductSectionVue,
     BestSellersVue,
-    FooterSection,
     CategorySectionVue,
     BrandSectionVue,
     TestimonialsSectionVue,

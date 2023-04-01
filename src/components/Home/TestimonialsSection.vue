@@ -7,7 +7,7 @@
         <div class="img__container">
           <img src="@/assets/images/h1_img-3.jpg" alt="" />
         </div>
-        <swiper-container class="swiper">
+        <swiper-container space-between="20" class="swiper">
           <swiper-slide
             v-for="testimonial in testimonials"
             :key="testimonial.name"
