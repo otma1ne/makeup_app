@@ -13,18 +13,27 @@
       </div>
       <div class="filter__item">
         <div class="title">Filter by price</div>
-        <v-range-slider max="100" min="-100"></v-range-slider>
-        <v-btn color="accent" elevation="2" small></v-btn>
+        <input class="price__filter" type="range" :value="filterPrice" />
+        <div class="price__info">
+          <p>Price : $<span>0</span> - $<span>100</span></p>
+          <button class="primary__btn">Filter</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      filterPrice: 100,
+    };
+  },
+};
 </script>
 
-<style scoped>
+<style>
 .filter__sidebar {
   display: flex;
   flex-direction: column;
@@ -32,6 +41,7 @@ export default {};
 }
 
 .filter__sidebar .container {
+  width: 100%;
   position: -webkit-sticky;
   position: sticky;
   top: 130px;
@@ -65,5 +75,28 @@ export default {};
 .filter__sidebar .filter__item ul li span {
   font-size: 10px;
   color: var(--textColor);
+}
+
+.filter__sidebar .filter__item .price__filter {
+  margin-top: 30px;
+  width: 100%;
+  height: 4px;
+  accent-color: black;
+}
+
+.filter__sidebar .filter__item .price__info {
+  margin-top: 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter__sidebar .filter__item .price__info span {
+  font-weight: 500;
+}
+.filter__sidebar .filter__item .price__info .primary__btn {
+  padding: 4px 12px;
+  font-size: 12px;
 }
 </style>
