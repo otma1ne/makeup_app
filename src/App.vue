@@ -36,6 +36,11 @@ export default {
   outline: none;
 }
 
+a {
+  text-decoration: none;
+  color: unset;
+}
+
 .max__width {
   padding: 0 160px;
   width: 100%;

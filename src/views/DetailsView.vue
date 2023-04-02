@@ -43,7 +43,7 @@
         <div class="details__container">
           <div class="product__name">{{ product.name }}</div>
           <AwesomeVueStarRating
-            :star="3"
+            :star="product.rating"
             :hasresults="false"
             :hasdescription="false"
             :starsize="'xs'"
@@ -70,6 +70,30 @@
               </div>
             </div>
           </div>
+          <div class="quantity">
+            <div class="title">Quantity</div>
+            <div class="controls">
+              <button @click="handleMinesQuantityClick">-</button>
+              <input type="text" v-model="quantity" readonly />
+              <button @click="handlePlusQuantityClick">+</button>
+            </div>
+          </div>
+          <button class="primary__btn">Add To Cart</button>
+        </div>
+      </div>
+      <div class="related__products">
+        <div class="title">Related Products</div>
+        <div class="products">
+          <ProductCard
+            v-for="relatedProduct in relatedProducts"
+            :key="relatedProduct"
+            :product="{
+              name: 'Fantastic Rubber Knife',
+              category: 'Makeup',
+              price: '11.56',
+              image: '23_1-460x460.png',
+            }"
+          />
         </div>
       </div>
     </div>
@@ -79,11 +103,13 @@
 <script>
 import chevronIcon from "@/assets/icons/chevron right 1.svg";
 import AwesomeVueStarRating from "awesome-vue-star-rating";
+import ProductCard from "@/components/ProductCard.vue";
 let swiperEl = "";
 export default {
   components: {
     chevronIcon,
     AwesomeVueStarRating,
+    ProductCard,
   },
   data() {
     return {
@@ -92,11 +118,14 @@ export default {
         description:
           "Aut omnis modi tempore doloribus repellendus quidem est. Qui quia velit id repellendus eum sed officia. Officiis accusantium in veniam nostrum minus consequatur.",
         price: 125.95,
+        rating: 4,
         colors: ["#f4d7b8", "#daa570", "#c6966b", "#976c48"],
         sizes: ["35ml", "50ml", "100ml"],
         images: ["26_1.jpg", "26_2.jpg", "26_3.jpg", "26_4.jpg"],
       },
+      relatedProducts: [1, 2, 3, 4],
       currentIndex: 0,
+      quantity: 1,
     };
   },
   methods: {
@@ -104,8 +133,15 @@ export default {
       swiperEl.swiper.slideTo(index);
       this.currentIndex = index;
     },
+    handlePlusQuantityClick() {
+      this.quantity += 1;
+    },
+    handleMinesQuantityClick() {
+      this.quantity -= 1;
+    },
   },
   mounted() {
+    window.scrollTo(0, 0);
     swiperEl = document.querySelector("#imgs__swiper");
   },
 };
@@ -113,7 +149,7 @@ export default {
 
 <style scoped>
 .details {
-  margin-top: 104px;
+  margin: 104px 0 60px 0;
 }
 
 .details .breadcrumb {
@@ -147,7 +183,7 @@ export default {
 
 .details .container .imgs__container {
   position: relative;
-  padding-top: 80%;
+  padding-top: 90%;
 }
 
 .details .container .imgs__container .swiper__container {
@@ -158,10 +194,12 @@ export default {
   height: 100%;
   display: grid;
   grid-template-columns: 80px 1fr;
+  grid-template-areas: "imgs__control swiper";
   gap: 10px;
 }
 
 .details .container .imgs__container .swiper__container .imgs__control {
+  grid-area: imgs__control;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -184,6 +222,7 @@ export default {
 }
 
 .details .container .imgs__container .swiper__container .swiper {
+  grid-area: swiper;
   width: 100%;
 }
 
@@ -243,7 +282,110 @@ export default {
   font-size: 12px;
   color: var(--textColor);
   padding: 8px 12px;
-  border: 1px solid gray;
+  border: 1px solid #f1f1f1;
+  cursor: pointer;
+}
+
+.details .container .details__container .quantity {
+  margin-top: 20px;
+  border: 1px solid #f1f1f1;
+  padding-left: 20px;
+  font-size: 14px;
+  color: var(--textColor);
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.details .container .details__container .quantity .controls button {
+  width: 35px;
+  height: 40px;
+  font-size: 18px;
+  background: white;
+  border: none;
+  border-right: 1px solid #f1f1f1;
+  border-left: 1px solid #f1f1f1;
+  cursor: pointer;
+}
+.details .container .details__container .quantity .controls input {
+  width: 50px;
+  height: 40px;
+  border: none;
+  padding: 0;
+  text-align: center;
+}
+
+.details .container .details__container .primary__btn {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.details .related__products {
+  margin-top: 100px;
+}
+
+.details .related__products .title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.details .related__products .products {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.details .related__products .products .product {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .details .container .details__container {
+    padding: 0;
+  }
+  .details .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(320px, auto) auto;
+  }
+}
+@media only screen and (max-width: 1250px) {
+  .details .related__products .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .details .related__products .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .details .related__products .products {
+    grid-template-columns: 1fr;
+  }
+
+  .details .container .imgs__container .swiper__container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 60px;
+    grid-template-areas:
+      "swiper"
+      "imgs__control";
+  }
+
+  .details .container .imgs__container .swiper__container .imgs__control {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .details .container .imgs__container .swiper__container .imgs__control img {
+    width: 60px;
+    height: 60px;
+  }
 }
 </style>
 

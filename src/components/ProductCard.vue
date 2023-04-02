@@ -1,10 +1,12 @@
 <template>
   <div class="product">
     <div class="img__container">
-      <img
-        :src="require('@/assets/images/' + product.image + '')"
-        alt="product"
-      />
+      <router-link :to="{ name: 'details', params: { id: 1 } }">
+        <img
+          :src="require('@/assets/images/' + product.image + '')"
+          alt="product"
+        />
+      </router-link>
       <div class="icons">
         <div class="icon__container">
           <p>Quick View</p>
@@ -20,11 +22,13 @@
         </div>
       </div>
     </div>
-    <div class="content">
-      <div class="category">{{ product.category }}</div>
-      <div class="name">{{ product.name }}</div>
-      <div class="price">${{ product.price }}</div>
-    </div>
+    <router-link :to="{ name: 'details', params: { id: 1 } }">
+      <div class="content">
+        <div class="category">{{ product.category }}</div>
+        <div class="name">{{ product.name }}</div>
+        <div class="price">${{ product.price }}</div>
+      </div>
+    </router-link>
   </div>
 </template>
 
