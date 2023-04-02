@@ -9,15 +9,26 @@
     </div>
     <div class="max__width">
       <div class="shop__container">
-        <FilterSideBar />
+        <FilterSideBar
+          :isShowFilter="isShowFilter"
+          @closeFilter="showFilter(false)"
+        />
         <div class="products__container">
           <div class="header">
-            <select>
-              <option value="default">Default Sorting</option>
-              <option value="name">Sort By name</option>
-              <option value="price_asc">Sort By price Asc</option>
-              <option value="price_desc">Sort By price Desc</option>
-            </select>
+            <div class="filter">
+              <button
+                class="primary__btn filter__btn"
+                @click="showFilter(true)"
+              >
+                <filterIcon />
+              </button>
+              <select>
+                <option value="default">Default Sorting</option>
+                <option value="name">Sort By name</option>
+                <option value="price_asc">Sort By price Asc</option>
+                <option value="price_desc">Sort By price Desc</option>
+              </select>
+            </div>
             <div class="info">Showing 12 of 16</div>
           </div>
           <div class="products">
@@ -42,17 +53,25 @@
 import chevronIcon from "@/assets/icons/chevron right 1.svg";
 import ProductCard from "@/components/ProductCard.vue";
 import FilterSideBar from "@/components/Shop/FilterSideBar.vue";
+import filterIcon from "@/assets/icons/filter_outline.svg";
 
 export default {
   components: {
     chevronIcon,
     ProductCard,
     FilterSideBar,
+    filterIcon,
   },
   data() {
     return {
+      isShowFilter: false,
       items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     };
+  },
+  methods: {
+    showFilter(value) {
+      this.isShowFilter = value;
+    },
   },
   mounted() {
     window.scrollTo(0, 0);
@@ -118,6 +137,25 @@ export default {
   align-items: center;
 }
 
+.shop .shop__container .products__container .header .filter {
+  display: flex;
+  gap: 10px;
+}
+
+.shop .shop__container .products__container .header .filter__btn {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--textColor);
+}
+
+.shop .shop__container .products__container .header .filter__btn svg {
+  stroke: var(--textColor);
+  width: 18px;
+  height: 18px;
+}
+
 .shop .shop__container .products__container .header .info {
   font-size: 14px;
   color: var(--textColor);
@@ -129,5 +167,53 @@ export default {
 
 .shop .shop__container .products__container .products .product {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
+@media only screen and (max-width: 1300px) {
+  .shop .shop__container .products__container .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .shop .shop__container {
+    grid-template-columns: 1fr;
+  }
+  .shop .shop__container .products__container .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .shop .shop__container .products__container .header .filter__btn {
+    display: flex;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .shop .breadcrumb__container {
+    padding: 40px 0;
+  }
+
+  .shop .breadcrumb__container .title {
+    font-size: 36px;
+    font-weight: 600;
+  }
+  .shop .shop__container .products__container .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .shop {
+    margin-top: 99px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .shop .shop__container .products__container .products {
+    grid-template-columns: 1fr;
+  }
+
+  .shop .shop__container .products__container .header .filter select {
+    padding: 10px 20px 10px 10px;
+  }
 }
 </style>

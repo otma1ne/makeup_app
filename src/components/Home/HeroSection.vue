@@ -8,6 +8,7 @@
       @slidechangetransitionstart="onSlideChangeTransitionStart()"
       @slidechangetransitionend="onSlideChangeTransitionEnd()"
       class="swiper"
+      id="hero__swiper"
     >
       <swiper-slide class="swiper__slide">
         <div class="slide__info">
@@ -117,9 +118,7 @@
 <script>
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { register } from "swiper/element/bundle";
 import $ from "jquery";
-register();
 AOS.init();
 
 export default {

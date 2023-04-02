@@ -1,22 +1,25 @@
 <template>
-  <div class="filter__sidebar">
-    <div class="container">
-      <div class="filter__item">
-        <div class="title">Product Category</div>
-        <ul>
-          <li>Bath & Body <span>(12)</span></li>
-          <li>Skincare <span>(10)</span></li>
-          <li>Makeup <span>(8)</span></li>
-          <li>Fragrance <span>(14)</span></li>
-          <li>Hair <span>(0)</span></li>
-        </ul>
-      </div>
-      <div class="filter__item">
-        <div class="title">Filter by price</div>
-        <input class="price__filter" type="range" :value="filterPrice" />
-        <div class="price__info">
-          <p>Price : $<span>0</span> - $<span>100</span></p>
-          <button class="primary__btn">Filter</button>
+  <div>
+    <OverlayCom :isActive="isShowFilter" @onclick="closeFilter" />
+    <div class="filter__sidebar" :class="{ active: isShowFilter }">
+      <div class="container">
+        <div class="filter__item">
+          <div class="title">Product Category</div>
+          <ul>
+            <li>Bath & Body <span>(12)</span></li>
+            <li>Skincare <span>(10)</span></li>
+            <li>Makeup <span>(8)</span></li>
+            <li>Fragrance <span>(14)</span></li>
+            <li>Hair <span>(0)</span></li>
+          </ul>
+        </div>
+        <div class="filter__item">
+          <div class="title">Filter by price</div>
+          <input class="price__filter" type="range" :value="filterPrice" />
+          <div class="price__info">
+            <p>Price : $<span>0</span> - $<span>100</span></p>
+            <button class="primary__btn">Filter</button>
+          </div>
         </div>
       </div>
     </div>
@@ -24,17 +27,35 @@
 </template>
 
 <script>
+import OverlayCom from "../OverlayCom.vue";
 export default {
+  props: {
+    isShowFilter: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  components: {
+    OverlayCom,
+  },
   data() {
     return {
       filterPrice: 100,
     };
+  },
+  methods: {
+    closeFilter() {
+      this.$emit("closeFilter");
+    },
   },
 };
 </script>
 
 <style>
 .filter__sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 130px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -42,9 +63,6 @@ export default {
 
 .filter__sidebar .container {
   width: 100%;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 130px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -98,5 +116,34 @@ export default {
 .filter__sidebar .filter__item .price__info .primary__btn {
   padding: 4px 12px;
   font-size: 12px;
+}
+
+@media only screen and (max-width: 992px) {
+  .filter__sidebar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    padding: 40px 30px;
+    background: white;
+    z-index: 11;
+    width: 100%;
+    max-width: 300px;
+    height: 100vh;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition: 0.3s ease-in-out;
+  }
+
+  .filter__sidebar.active {
+    left: 0;
+  }
+
+  .filter__sidebar .container {
+    width: 100%;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
 }
 </style>

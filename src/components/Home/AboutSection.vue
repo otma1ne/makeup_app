@@ -181,7 +181,7 @@ export default {
   }
 
   .about .about__container .text__container {
-    padding-bottom: 40px;
+    padding-bottom: 0px;
   }
 
   .about .about__container .imgs__container {
