@@ -196,4 +196,23 @@ export default {
   line-height: 32px;
   color: var(--textColor);
 }
+
+@media only screen and (max-width: 1200px) {
+  .testimonials .testimonials__container {
+    grid-template-columns: 1fr;
+  }
+  .testimonials .testimonials__container .img__container {
+    height: 30vh;
+  }
+  .testimonials .testimonials__container .img__container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .testimonials .testimonials__container .swiper {
+    width: 100%;
+    margin: 0 0 80px 0;
+  }
+}
 </style>

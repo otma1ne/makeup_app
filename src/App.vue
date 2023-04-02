@@ -139,4 +139,30 @@ select {
   background-repeat: no-repeat;
   background-position: calc(100% - 8px) center;
 }
+
+/* Responsive styles */
+
+@media only screen and (max-width: 1200px) {
+  .max__width {
+    padding: 0 100px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .max__width {
+    padding: 0 80px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .max__width {
+    padding: 0 40px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .max__width {
+    padding: 0 20px;
+  }
+}
 </style>

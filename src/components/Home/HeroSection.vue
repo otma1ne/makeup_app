@@ -236,4 +236,38 @@ export default {
   object-fit: cover;
   object-position: center;
 }
+
+@media only screen and (max-width: 1200px) {
+  .home .swiper .swiper__slide .slide__info .container .title {
+    font-size: 30px;
+    line-height: 54px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .home .swiper {
+    height: calc(120vh - 104px);
+  }
+  .home .swiper .swiper__slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: 65vh 50vh;
+  }
+
+  .home .swiper .swiper__slide .slide__info {
+    padding: 40px 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .home {
+    margin-top: 99px;
+  }
+  .home .swiper {
+    height: calc(120vh - 99px);
+  }
+  .home .swiper .swiper__slide .slide__info .container .title {
+    font-size: 24px;
+    line-height: 46px;
+  }
+}
 </style>

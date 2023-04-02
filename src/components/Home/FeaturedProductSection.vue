@@ -13,10 +13,11 @@
           <button class="secondary__btn">View All Product</button>
         </div>
         <swiper-container
-          slides-per-view="2"
-          space-between="40"
+          slides-per-view="1"
+          space-between="30"
           speed="500"
           class="swiper"
+          id="featured__product__swiper"
         >
           <swiper-slide>
             <ProductCard
@@ -55,13 +56,35 @@
 </template>
 
 <script>
-import { register } from "swiper/element/bundle";
 import ProductCard from "../ProductCard.vue";
 
-register();
 export default {
   components: {
     ProductCard,
+  },
+  mounted() {
+    const swiperEl = document.querySelector("#featured__product__swiper");
+
+    const swiperParams = {
+      slidesPerView: 1,
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+        },
+        600: {
+          slidesPerView: 2,
+        },
+        992: {
+          slidesPerView: 3,
+        },
+        1200: {
+          slidesPerView: 2,
+        },
+      },
+    };
+
+    Object.assign(swiperEl, swiperParams);
+    swiperEl.initialize();
   },
 };
 </script>
@@ -122,5 +145,11 @@ export default {
   top: -80px;
   position: relative;
   width: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .featured__product .featured__product__container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

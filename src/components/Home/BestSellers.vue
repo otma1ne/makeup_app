@@ -134,4 +134,22 @@ export default {
   display: flex;
   justify-content: center;
 }
+
+@media only screen and (max-width: 1250px) {
+  .best__sellers .product__container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .best__sellers .product__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .best__sellers .product__container {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

@@ -74,6 +74,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 80px;
+  justify-items: center;
 }
 
 .about .about__container .imgs__container {
@@ -81,6 +82,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  width: 100%;
+  max-width: 600px;
 }
 
 .about .about__container .imgs__container img {
@@ -159,5 +162,54 @@ export default {
 
 .about .about__container .text__container button.primary__btn {
   margin-top: 30px;
+}
+
+@media only screen and (max-width: 1400px) {
+  .about .about__container .imgs__container .img__one {
+    height: 70%;
+  }
+
+  .about .about__container .imgs__container .img__two {
+    height: 40%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .about .about__container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60vh auto;
+  }
+
+  .about .about__container .text__container {
+    padding-bottom: 40px;
+  }
+
+  .about .about__container .imgs__container {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .about .about__container .imgs__container .img__one {
+    height: 90%;
+  }
+
+  .about .about__container .imgs__container .img__two {
+    height: 50%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .about .about__container .imgs__container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about .about__container .imgs__container .img__one {
+    height: 80%;
+  }
+
+  .about .about__container .imgs__container .img__two {
+    height: 40%;
+  }
 }
 </style>

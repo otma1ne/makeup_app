@@ -9,7 +9,6 @@
     <TestimonialsSectionVue />
   </div>
 </template>
-
 <script>
 import HeroSectionVue from "@/components/Home/HeroSection.vue";
 import AboutSectionVue from "@/components/Home/AboutSection.vue";
@@ -19,6 +18,7 @@ import CategorySectionVue from "@/components/Home/CategorySection.vue";
 import BrandSectionVue from "@/components/Home/BrandSection.vue";
 import TestimonialsSectionVue from "@/components/Home/TestimonialsSection.vue";
 
+/* eslint-disable vue/no-unused-components */
 export default {
   components: {
     HeroSectionVue,
@@ -28,6 +28,9 @@ export default {
     CategorySectionVue,
     BrandSectionVue,
     TestimonialsSectionVue,
+  },
+  mounted() {
+    window.scrollTo(0, 0);
   },
 };
 </script>

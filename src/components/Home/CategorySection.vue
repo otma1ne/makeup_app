@@ -133,4 +133,16 @@ export default {
 .category .category__container .card:hover .content .icon__container svg {
   fill: white;
 }
+
+@media only screen and (max-width: 1200px) {
+  .category .category__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .category .category__container {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

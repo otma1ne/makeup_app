@@ -1,7 +1,7 @@
 <template>
   <section class="brand">
     <div class="max__width">
-      <swiper-container slides-per-view="7" class="swiper">
+      <swiper-container slides-per-view="7" class="swiper" id="brands__swiper">
         <swiper-slide v-for="brand in brands" :key="brand" class="swiper__item">
           <div class="img__container">
             <img :src="require('@/assets/images/' + brand + '')" alt="Brand" />
@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import { register } from "swiper/element/bundle";
-register();
 export default {
   data() {
     return {
@@ -30,6 +28,36 @@ export default {
         "logo-brand_9.png",
       ],
     };
+  },
+  mounted() {
+    const swiperEl = document.querySelector("#brands__swiper");
+
+    const swiperParams = {
+      slidesPerView: 1,
+      breakpoints: {
+        0: {
+          slidesPerView: 2,
+        },
+        500: {
+          slidesPerView: 3,
+        },
+        600: {
+          slidesPerView: 4,
+        },
+        768: {
+          slidesPerView: 5,
+        },
+        992: {
+          slidesPerView: 6,
+        },
+        1200: {
+          slidesPerView: 7,
+        },
+      },
+    };
+
+    Object.assign(swiperEl, swiperParams);
+    swiperEl.initialize();
   },
 };
 </script>
