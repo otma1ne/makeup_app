@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <NavBar />
+    <LoginModalVue />
+    <RegisterModal />
+    <ProductModal />
     <router-view />
     <FooterSection />
   </div>
@@ -8,11 +11,17 @@
 <script>
 import NavBar from "./components/NavBar.vue";
 import FooterSection from "./components/FooterSection.vue";
+import LoginModalVue from "./components/LoginModal.vue";
+import RegisterModal from "./components/RegisterModal.vue";
+import ProductModal from "./components/ProductModal.vue";
 
 export default {
   components: {
     NavBar,
     FooterSection,
+    LoginModalVue,
+    RegisterModal,
+    ProductModal,
   },
 };
 </script>
@@ -67,7 +76,7 @@ a {
 
 .primary__btn {
   position: relative;
-  padding: 10px 24px;
+  padding: 8px 24px;
   border: 2px solid black;
   text-transform: uppercase;
   background: transparent;
@@ -80,7 +89,7 @@ a {
 
 .secondary__btn {
   position: relative;
-  padding: 10px 24px;
+  padding: 8px 24px;
   border: 2px solid white;
   color: white;
   text-transform: uppercase;
@@ -146,6 +155,19 @@ select {
   background-position: calc(100% - 8px) center;
 }
 
+.input__labled {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input__labled label {
+  font-size: 14px;
+}
+
+.input__labled input {
+  padding: 6px 16px;
+}
 /* Responsive styles */
 
 @media only screen and (max-width: 1200px) {

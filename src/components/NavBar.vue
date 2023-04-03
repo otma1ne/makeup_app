@@ -19,7 +19,7 @@
         </ul>
         <div class="icons">
           <searchIcon class="search__icon" @click="showSearch(true)" />
-          <userIcon class="user__icon" />
+          <userIcon class="user__icon" @click="showLogin()" />
           <cartIcon class="bag__icon" @click="showCart(true)" />
         </div>
       </div>
@@ -66,6 +66,9 @@ export default {
     },
     showMenu(value) {
       this.isShowMenu = value;
+    },
+    showLogin() {
+      this.$store.dispatch("changeShowLogin", true);
     },
   },
 };

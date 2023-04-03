@@ -1,7 +1,7 @@
 <template>
   <section class="cart">
     <div class="breadcrumb__container">
-      <div class="title">Shop</div>
+      <div class="title">Cart</div>
       <ul>
         <li>Home<chevronIcon height="22" /></li>
         <li>Cart</li>

@@ -8,7 +8,7 @@
         />
       </router-link>
       <div class="icons">
-        <div class="icon__container">
+        <div class="icon__container" @click="showModal">
           <p>Quick View</p>
           <viewIcon fill="black" width="20" />
         </div>
@@ -46,6 +46,11 @@ export default {
     product: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    showModal() {
+      this.$store.dispatch("changeShowProdModal", true);
     },
   },
 };

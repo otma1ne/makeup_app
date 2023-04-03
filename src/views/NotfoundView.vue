@@ -8,14 +8,23 @@
           This page could'nt be found! Back to homepage if you like. Please use
           search for help!
         </div>
-        <button class="primary__btn">Back to home</button>
+        <button class="primary__btn" @click="navigateToHome">
+          Back to home
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-export default {};
+import router from "@/router";
+export default {
+  methods: {
+    navigateToHome() {
+      router.push({ name: "home" });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -54,5 +63,9 @@ export default {};
 
 .notfound .notfound__container .primary__btn {
   margin-top: 40px;
+}
+
+.notfound .notfound__container .primary__btn:hover {
+  background: black;
 }
 </style>
