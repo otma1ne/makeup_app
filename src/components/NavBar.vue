@@ -1,14 +1,15 @@
 <template>
   <nav>
+    <OverlayCom :isActive="isShowMenu" @onclick="showMenu(false)" />
     <div class="max__width">
       <div class="container">
-        <menuIcon class="menu__icon" />
+        <menuIcon class="menu__icon" @click="showMenu(true)" />
         <router-link :to="{ name: 'home' }">
           <div class="logo">
             <logo class="logo__icon" />
           </div>
         </router-link>
-        <ul class="menu">
+        <ul class="menu" :class="{ active: isShowMenu }">
           <li>Home</li>
           <li>Makeup</li>
           <li>Skincare</li>
@@ -36,6 +37,7 @@ import searchIcon from "@/assets/icons/search_outline.svg";
 import SideCart from "./SideCart.vue";
 import SearchCom from "./SearchCom.vue";
 import menuIcon from "@/assets/icons/burger_menu.svg";
+import OverlayCom from "./OverlayCom.vue";
 
 export default {
   components: {
@@ -46,11 +48,13 @@ export default {
     menuIcon,
     SideCart,
     SearchCom,
+    OverlayCom,
   },
   data() {
     return {
       isShowCart: false,
       isShowSearch: false,
+      isShowMenu: false,
     };
   },
   methods: {
@@ -59,6 +63,9 @@ export default {
     },
     showSearch(value) {
       this.isShowSearch = value;
+    },
+    showMenu(value) {
+      this.isShowMenu = value;
     },
   },
 };
@@ -130,20 +137,24 @@ nav .container .icons .search__icon {
     display: block;
   }
 
-  nav .menu {
+  nav .container .menu {
     position: fixed;
     top: 0;
     right: -100%;
     width: 100%;
     height: 100vh;
     z-index: 10;
-    gap: 30px;
+    gap: 20px;
     max-width: 300px;
     flex-direction: column;
     background: white;
-    padding: 80px 40px;
+    padding: 60px 40px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     transition: 0.3s ease-in-out;
+  }
+
+  nav .container .menu.active {
+    right: 0;
   }
 }
 

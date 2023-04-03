@@ -249,7 +249,7 @@ export default {
   }
   .home .swiper .swiper__slide {
     grid-template-columns: 1fr;
-    grid-template-rows: 65vh 50vh;
+    grid-template-rows: minmax(475px, 65vh) 50vh;
   }
 
   .home .swiper .swiper__slide .slide__info {

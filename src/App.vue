@@ -34,6 +34,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {

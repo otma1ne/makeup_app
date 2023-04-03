@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ShopView from "../views/ShopView.vue";
 import DetailsView from "../views/DetailsView.vue";
+import CartView from "../views/CartView.vue";
+import NotfoundView from "../views/NotfoundView.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +23,16 @@ const routes = [
     path: "/details/:id",
     name: "details",
     component: DetailsView,
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: CartView,
+  },
+  {
+    path: "**",
+    name: "notfound",
+    component: NotfoundView,
   },
 ];
 

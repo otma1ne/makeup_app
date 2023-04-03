@@ -347,6 +347,10 @@ export default {
   .details .container .details__container {
     padding: 0;
   }
+
+  .details .container .imgs__container {
+    padding-top: 100%;
+  }
   .details .container {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(320px, auto) auto;
@@ -364,7 +368,16 @@ export default {
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .details {
+    margin: 97px 0 60px 0;
+  }
+}
+
 @media only screen and (max-width: 500px) {
+  .details .container {
+    margin-top: 60px;
+  }
   .details .related__products .products {
     grid-template-columns: 1fr;
   }

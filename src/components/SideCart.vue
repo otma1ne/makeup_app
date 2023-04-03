@@ -2,16 +2,29 @@
   <div>
     <OverlayCom :isActive="isShowCart" @onclick="closeCart" />
     <div class="side__cart" :class="{ active: isShowCart }">
-      <div class="cart__header">Shoping Cart</div>
+      <div class="cart__header">
+        Shoping Cart <closeIcon width="20" @click="closeCart" />
+      </div>
+      <div class="cart__body"></div>
+      <div class="cart__footer">
+        <div class="total">
+          <h3>Subtotal</h3>
+          <h3>$0</h3>
+        </div>
+        <button class="primary__btn" @click="navigateToCart">View cart</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import OverlayCom from "./OverlayCom.vue";
+import closeIcon from "@/assets/icons/cross.svg";
+import router from "@/router";
 export default {
   components: {
     OverlayCom,
+    closeIcon,
   },
   props: {
     isShowCart: {
@@ -22,6 +35,10 @@ export default {
   methods: {
     closeCart() {
       this.$emit("closeCart");
+    },
+    navigateToCart() {
+      this.closeCart();
+      router.push({ name: "cart" });
     },
   },
 };
@@ -39,6 +56,8 @@ export default {
   z-index: 11;
   transition: 0.3s ease-in-out;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .side__cart.active {
@@ -46,8 +65,40 @@ export default {
 }
 
 .side__cart .cart__header {
-  padding: 30px;
-  font-size: 18px;
+  position: relative;
+  padding: 25px 20px;
+  font-size: 16px;
   border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.side__cart .cart__header svg {
+  fill: var(--textColor);
+  cursor: pointer;
+}
+
+.side__cart .cart__footer {
+  border-top: 1px solid #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px;
+}
+
+.side__cart .cart__footer .total {
+  display: flex;
+  justify-content: space-between;
+}
+
+.side__cart .cart__footer .total h3 {
+  font-weight: 400;
+  font-size: 16px;
+  color: black;
+}
+
+.side__cart .cart__footer button {
+  width: 100%;
 }
 </style>
