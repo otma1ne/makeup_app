@@ -23,6 +23,9 @@ export default {
     RegisterModal,
     ProductModal,
   },
+  created() {
+    this.$store.dispatch("fetchProducts");
+  },
 };
 </script>
 <style>

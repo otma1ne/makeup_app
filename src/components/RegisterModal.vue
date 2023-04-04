@@ -15,20 +15,20 @@
           />
         </div>
         <div class="input__labled">
-          <label for="email">Email</label>
+          <label for="email__input">Email</label>
           <input
             type="text"
             name="email"
-            id="email"
+            id="email__input"
             placeholder="Enter your email"
           />
         </div>
         <div class="input__labled">
-          <label for="password">Password</label>
+          <label for="password__input">Password</label>
           <input
             type="password"
             name="password"
-            id="password"
+            id="password__input"
             placeholder="Enter your password"
           />
         </div>
@@ -73,7 +73,7 @@ export default {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   z-index: 11;
   display: none;
-  padding: 60px 30px;
+  padding: 40px 30px;
 }
 
 .register__container.active {

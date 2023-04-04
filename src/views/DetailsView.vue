@@ -1,20 +1,29 @@
 <template>
-  <section class="details">
+  <section
+    class="details"
+    :class="{ onsale: product.onsale }"
+    v-if="product && !isloading"
+  >
     <div class="breadcrumb">
       <div class="max__width">
         <ul>
           <li>Home <chevronIcon width="18" height="18" fill="f4f4f4" /></li>
           <li>Shop <chevronIcon width="18" height="18" fill="f4f4f4" /></li>
           <li>
-            Categories <chevronIcon width="18" height="18" fill="f4f4f4" />
+            {{ product.category }}
+            <chevronIcon width="18" height="18" fill="f4f4f4" />
           </li>
-          <li>Product <chevronIcon width="18" height="18" fill="f4f4f4" /></li>
+          <li>
+            {{ product.name }}
+            <chevronIcon width="18" height="18" fill="f4f4f4" />
+          </li>
         </ul>
       </div>
     </div>
     <div class="max__width">
       <div class="container">
         <div class="imgs__container">
+          <div class="sale">Sale !</div>
           <div class="swiper__container">
             <div class="imgs__control">
               <img
@@ -50,7 +59,10 @@
             :disabled="true"
           />
           <div class="product__description">{{ product.description }}</div>
-          <div class="product__price">${{ product.price }}</div>
+          <div class="product__price">
+            <div class="discount__price">$9.99</div>
+            <div class="init__price">${{ product.price }}</div>
+          </div>
           <div class="product__colors">
             <div class="title">Colors</div>
             <div class="colors">
@@ -88,10 +100,11 @@
             v-for="relatedProduct in relatedProducts"
             :key="relatedProduct"
             :product="{
+              id: 'x',
               name: 'Fantastic Rubber Knife',
               category: 'Makeup',
               price: '11.56',
-              image: '23_1-460x460.png',
+              images: ['23_1-460x460.png'],
             }"
           />
         </div>
@@ -104,6 +117,7 @@
 import chevronIcon from "@/assets/icons/chevron right 1.svg";
 import AwesomeVueStarRating from "awesome-vue-star-rating";
 import ProductCard from "@/components/ProductCard.vue";
+import ProductService from "@/services/ProductService";
 let swiperEl = "";
 export default {
   components: {
@@ -113,16 +127,8 @@ export default {
   },
   data() {
     return {
-      product: {
-        name: "Practical Granite Bottle",
-        description:
-          "Aut omnis modi tempore doloribus repellendus quidem est. Qui quia velit id repellendus eum sed officia. Officiis accusantium in veniam nostrum minus consequatur.",
-        price: 125.95,
-        rating: 4,
-        colors: ["#f4d7b8", "#daa570", "#c6966b", "#976c48"],
-        sizes: ["35ml", "50ml", "100ml"],
-        images: ["26_1.jpg", "26_2.jpg", "26_3.jpg", "26_4.jpg"],
-      },
+      isloading: true,
+      product: {},
       relatedProducts: [1, 2, 3, 4],
       currentIndex: 0,
       quantity: 1,
@@ -130,6 +136,7 @@ export default {
   },
   methods: {
     handleImageClick(index) {
+      swiperEl = document.querySelector("#imgs__swiper");
       swiperEl.swiper.slideTo(index);
       this.currentIndex = index;
     },
@@ -140,9 +147,16 @@ export default {
       this.quantity -= 1;
     },
   },
-  mounted() {
-    window.scrollTo(0, 0);
-    swiperEl = document.querySelector("#imgs__swiper");
+  created() {
+    ProductService.getProduct(this.$route.params.id)
+      .then((response) => {
+        this.product = response.data;
+        this.isloading = false;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.isloading = false;
+      });
   },
 };
 </script>
@@ -172,6 +186,22 @@ export default {
 
 .details .breadcrumb ul li:last-child svg {
   display: none;
+}
+
+.details .sale {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--primaryColor);
+  z-index: 2;
+  color: white;
+  font-size: 14px;
+  padding: 2px 12px;
+  display: none;
+}
+
+.details.onsale .sale {
+  display: block;
 }
 
 .details .container {
@@ -227,6 +257,7 @@ export default {
 }
 
 .details .container .imgs__container .swiper__container .swiper img {
+  background: #f4f4f4;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -252,6 +283,27 @@ export default {
   margin-top: 15px;
   font-size: 22px;
   font-weight: 600;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.details.onsale .container .details__container .product__price .init__price {
+  text-decoration: line-through;
+  color: var(--textColor);
+  font-size: 12px;
+}
+
+.details .container .details__container .product__price .discount__price {
+  display: none;
+}
+.details.onsale
+  .container
+  .details__container
+  .product__price
+  .discount__price {
+  display: block;
+  text-decoration: solid;
 }
 
 .details .container .details__container .product__colors,

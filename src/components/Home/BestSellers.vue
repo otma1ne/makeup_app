@@ -7,68 +7,9 @@
       </div>
       <div class="product__container">
         <ProductCard
-          :product="{
-            name: 'Fantastic Rubber Knife',
-            category: 'Makeup',
-            price: '11.56',
-            image: '23_1-460x460.png',
-          }"
-        />
-        <ProductCard
-          :product="{
-            name: 'Fantastic Rubber Knife',
-            category: 'Makeup',
-            price: '11.56',
-            image: '24_1-460x460.png',
-          }"
-        />
-        <ProductCard
-          :product="{
-            name: 'Fantastic Rubber Knife',
-            category: 'Makeup',
-            price: '11.56',
-            image: '23_1-460x460.png',
-          }"
-        />
-        <ProductCard
-          :product="{
-            name: 'Fantastic Rubber Knife',
-            category: 'Makeup',
-            price: '11.56',
-            image: '24_1-460x460.png',
-          }"
-        />
-        <ProductCard
-          :product="{
-            name: 'Fantastic Rubber Knife',
-            category: 'Makeup',
-            price: '11.56',
-            image: '23_1-460x460.png',
-          }"
-        />
-        <ProductCard
-          :product="{
-            name: 'Fantastic Rubber Knife',
-            category: 'Makeup',
-            price: '11.56',
-            image: '24_1-460x460.png',
-          }"
-        />
-        <ProductCard
-          :product="{
-            name: 'Fantastic Rubber Knife',
-            category: 'Makeup',
-            price: '11.56',
-            image: '23_1-460x460.png',
-          }"
-        />
-        <ProductCard
-          :product="{
-            name: 'Fantastic Rubber Knife',
-            category: 'Makeup',
-            price: '11.56',
-            image: '24_1-460x460.png',
-          }"
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
         />
       </div>
       <div class="button__container">
@@ -91,6 +32,11 @@ export default {
   methods: {
     navigateToShop() {
       router.push({ name: "shop" });
+    },
+  },
+  computed: {
+    products() {
+      return this.$store.getters.products;
     },
   },
 };

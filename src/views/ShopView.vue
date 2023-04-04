@@ -33,14 +33,9 @@
           </div>
           <div class="products">
             <ProductCard
-              v-for="item in items"
-              :key="item"
-              :product="{
-                name: 'Fantastic Rubber Knife',
-                category: 'Makeup',
-                price: '11.56',
-                image: '23_1-460x460.png',
-              }"
+              v-for="product in products"
+              :key="product.id"
+              :product="product"
             />
           </div>
         </div>
@@ -65,7 +60,6 @@ export default {
   data() {
     return {
       isShowFilter: false,
-      items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     };
   },
   methods: {
@@ -73,8 +67,10 @@ export default {
       this.isShowFilter = value;
     },
   },
-  mounted() {
-    window.scrollTo(0, 0);
+  computed: {
+    products() {
+      return this.$store.getters.products;
+    },
   },
 };
 </script>

@@ -1,3 +1,4 @@
+import ProductService from "@/services/ProductService";
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -8,8 +9,14 @@ export default new Vuex.Store({
     isShowLogin: false,
     isShowRegister: false,
     isShowProductModal: false,
+    products: [],
+    cart: [],
+    user: {},
   },
-  getters: {},
+  getters: {
+    products: (state) => state.products,
+    cart: (state) => state.cart,
+  },
   mutations: {
     CHANGE_SHOW_LOGIN(state, value) {
       state.isShowLogin = value;
@@ -19,6 +26,9 @@ export default new Vuex.Store({
     },
     CHANGE_SHOW_PRODMODAL(state, value) {
       state.isShowProductModal = value;
+    },
+    SET_PRODUCTS(state, products) {
+      state.products = [...state.products, ...products];
     },
   },
   actions: {
@@ -30,6 +40,15 @@ export default new Vuex.Store({
     },
     changeShowProdModal({ commit }, value) {
       commit("CHANGE_SHOW_PRODMODAL", value);
+    },
+    fetchProducts({ commit }) {
+      ProductService.getProducts()
+        .then((response) => {
+          commit("SET_PRODUCTS", response.data);
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
     },
   },
   modules: {},

@@ -1,9 +1,10 @@
 <template>
-  <div class="product">
+  <div class="product" :class="{ onsale: product.onsale }">
+    <div class="sale">Sale !</div>
     <div class="img__container">
-      <router-link :to="{ name: 'details', params: { id: 1 } }">
+      <router-link :to="{ name: 'details', params: { id: product.id } }">
         <img
-          :src="require('@/assets/images/' + product.image + '')"
+          :src="require('@/assets/images/' + product.images[0] + '')"
           alt="product"
         />
       </router-link>
@@ -22,11 +23,15 @@
         </div>
       </div>
     </div>
-    <router-link :to="{ name: 'details', params: { id: 1 } }">
+    <router-link :to="{ name: 'details', params: { id: product.id } }">
       <div class="content">
         <div class="category">{{ product.category }}</div>
         <div class="name">{{ product.name }}</div>
-        <div class="price">${{ product.price }}</div>
+
+        <div class="price saled">
+          <div class="discount__price">$9.99</div>
+          <div class="init__price">${{ product.price }}</div>
+        </div>
       </div>
     </router-link>
   </div>
@@ -58,8 +63,25 @@ export default {
 
 <style scoped>
 .product {
+  position: relative;
   background: white;
   cursor: pointer;
+}
+
+.product .sale {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--primaryColor);
+  z-index: 2;
+  color: white;
+  font-size: 14px;
+  padding: 2px 12px;
+  display: none;
+}
+
+.product.onsale .sale {
+  display: block;
 }
 .product .img__container {
   position: relative;
@@ -157,6 +179,24 @@ export default {
 .product .content .price {
   font-size: 14px;
   font-weight: 500;
+  color: var(--primaryColor);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product.onsale .content .price .init__price {
+  text-decoration: line-through;
+  color: var(--textColor);
+  font-size: 12px;
+}
+
+.product .content .price .discount__price {
+  display: none;
+}
+.product.onsale .content .price .discount__price {
+  display: block;
+  text-decoration: solid;
   color: var(--primaryColor);
 }
 </style>

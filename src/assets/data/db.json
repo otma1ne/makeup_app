@@ -1,0 +1,91 @@
+{
+  "products": [
+    {
+      "id": "prod1",
+      "name": "Fantastic Rubber Knife",
+      "description": "Aut omnis modi tempore doloribus repellendus quidem est. Qui quia velit id repellendus eum sed officia. Officiis accusantium in veniam nostrum minus consequatur.",
+      "category": "Makeup",
+      "price": "11.56",
+      "rating": 4,
+      "images": ["26_1.jpg", "26_2.jpg", "26_3.jpg", "26_4.jpg"],
+      "onsale": true,
+      "salePercent": 20,
+      "colors": ["#f4d7b8", "#daa570", "#c6966b", "#976c48"],
+      "sizes": ["35ml", "50ml", "100ml"]
+    },
+    {
+      "id": "prod2",
+      "name": "Fantastic Rubber Knife",
+      "description": "Aut omnis modi tempore doloribus repellendus quidem est. Qui quia velit id repellendus eum sed officia. Officiis accusantium in veniam nostrum minus consequatur.",
+      "category": "Makeup",
+      "price": "11.56",
+      "rating": 3,
+      "images": ["23_1-460x460.png", "26_4.jpg"],
+      "onsale": false,
+      "salePercent": 0,
+      "colors": ["#f4d7b8", "#daa570", "#c6966b", "#976c48"],
+      "sizes": ["35ml", "50ml", "100ml"]
+    },
+    {
+      "id": "prod3",
+      "name": "Fantastic Rubber Knife",
+      "category": "Makeup",
+      "price": "11.56",
+      "images": ["24_1-460x460.png"],
+      "onsale": true,
+      "salePercent": 20
+    },
+    {
+      "id": "prod4",
+      "name": "Fantastic Rubber Knife",
+      "category": "Makeup",
+      "price": "11.56",
+      "images": ["23_1-460x460.png"],
+      "onsale": false,
+      "salePercent": 0
+    },
+    {
+      "id": "prod5",
+      "name": "Fantastic Rubber Knife",
+      "category": "Makeup",
+      "price": "11.56",
+      "images": ["24_1-460x460.png"],
+      "onsale": true,
+      "salePercent": 20
+    },
+    {
+      "id": "prod6",
+      "name": "Fantastic Rubber Knife",
+      "category": "Makeup",
+      "price": "11.56",
+      "images": ["23_1-460x460.png"],
+      "onsale": false,
+      "salePercent": 0
+    },
+    {
+      "id": "prod7",
+      "name": "Fantastic Rubber Knife",
+      "category": "Makeup",
+      "price": "11.56",
+      "images": ["24_1-460x460.png"],
+      "onsale": true,
+      "salePercent": 20
+    },
+    {
+      "id": "prod8",
+      "name": "Fantastic Rubber Knife",
+      "category": "Makeup",
+      "price": "11.56",
+      "images": ["23_1-460x460.png"],
+      "onsale": false,
+      "salePercent": 0
+    }
+  ],
+  "users": [
+    {
+      "username": "othman01",
+      "email": "othmanou01@gmail.com",
+      "password": "othman2023"
+    }
+  ]
+}

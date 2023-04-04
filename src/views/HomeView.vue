@@ -29,9 +29,6 @@ export default {
     BrandSectionVue,
     TestimonialsSectionVue,
   },
-  mounted() {
-    window.scrollTo(0, 0);
-  },
 };
 </script>
 

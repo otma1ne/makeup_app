@@ -22,30 +22,34 @@
           <swiper-slide>
             <ProductCard
               :product="{
+                id: 'x',
                 name: 'Fantastic Rubber Knife',
                 category: 'Makeup',
                 price: '11.56',
-                image: '23_1-460x460.png',
+                images: ['23_1-460x460.png'],
+                onsale: true,
               }"
             />
           </swiper-slide>
           <swiper-slide>
             <ProductCard
               :product="{
+                id: 'x',
                 name: 'Fantastic Rubber Knife',
                 category: 'Makeup',
                 price: '11.56',
-                image: '24_1-460x460.png',
+                images: ['24_1-460x460.png'],
               }"
             />
           </swiper-slide>
           <swiper-slide
             ><ProductCard
               :product="{
+                id: 'x',
                 name: 'Fantastic Rubber Knife',
                 category: 'Makeup',
                 price: '11.56',
-                image: '23_1-460x460.png',
+                images: ['23_1-460x460.png'],
               }"
             />
           </swiper-slide>
