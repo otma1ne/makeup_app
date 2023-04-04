@@ -10,7 +10,7 @@
           </div>
         </router-link>
         <ul class="menu" :class="{ active: isShowMenu }">
-          <li><router-link :to="{ name: 'shop' }">Home</router-link></li>
+          <li><router-link :to="{ name: 'home' }">Home</router-link></li>
           <li><router-link :to="{ name: 'shop' }">Makeup</router-link></li>
           <li><router-link :to="{ name: 'shop' }">Skincare</router-link></li>
           <li><router-link :to="{ name: 'shop' }">Fragrance</router-link></li>

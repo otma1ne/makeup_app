@@ -28,7 +28,10 @@ export default new Vuex.Store({
       state.isShowProductModal = value;
     },
     SET_PRODUCTS(state, products) {
-      state.products = [...state.products, ...products];
+      state.products = products;
+    },
+    SET_USER(state, user) {
+      state.user = user;
     },
   },
   actions: {

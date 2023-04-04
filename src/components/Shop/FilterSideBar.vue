@@ -6,11 +6,9 @@
         <div class="filter__item">
           <div class="title">Product Category</div>
           <ul>
-            <li>Bath & Body <span>(12)</span></li>
-            <li>Skincare <span>(10)</span></li>
-            <li>Makeup <span>(8)</span></li>
-            <li>Fragrance <span>(14)</span></li>
-            <li>Hair <span>(0)</span></li>
+            <li v-for="category in productsCategories" :key="category.name">
+              {{ category.name }} <span>({{ category.count }})</span>
+            </li>
           </ul>
         </div>
         <div class="filter__item">
@@ -46,6 +44,24 @@ export default {
   methods: {
     closeFilter() {
       this.$emit("closeFilter");
+    },
+  },
+  computed: {
+    productsCategories() {
+      const categoryCount = {};
+      this.$store.getters.products.forEach((product) => {
+        const category = product.category;
+        if (categoryCount[category]) {
+          categoryCount[category]++;
+        } else {
+          categoryCount[category] = 1;
+        }
+      });
+      const categories = Object.keys(categoryCount).map((categoryName) => ({
+        name: categoryName,
+        count: categoryCount[categoryName],
+      }));
+      return categories;
     },
   },
 };

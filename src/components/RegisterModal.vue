@@ -4,33 +4,56 @@
     <div class="register__container" :class="{ active: isShowRegister }">
       <div class="title">Register</div>
       <div class="sub__title">Create a new account</div>
-      <form>
-        <div class="input__labled">
+      <form @submit="register">
+        <div class="input__labled" :class="{ error: errors.usernameError }">
           <label for="lastname">Username</label>
           <input
             type="text"
             name="username"
             id="username"
+            v-model="username"
+            @keypress="errors.usernameError = false"
             placeholder="Enter your username"
           />
+          <div class="error__message">Please enter the username</div>
         </div>
-        <div class="input__labled">
+        <div
+          class="input__labled"
+          :class="{ error: errors.emailError || errors.emailInvalidError }"
+        >
           <label for="email__input">Email</label>
           <input
             type="text"
             name="email"
             id="email__input"
+            v-model="email"
+            @keypress="
+              () => {
+                errors.emailError = false;
+                errors.emailInvalidError = false;
+              }
+            "
             placeholder="Enter your email"
           />
+          <div class="error__message">
+            {{
+              errors.emailInvalidError
+                ? "Please enter a valid email"
+                : "Please enter the Email"
+            }}
+          </div>
         </div>
-        <div class="input__labled">
+        <div class="input__labled" :class="{ error: errors.passwordError }">
           <label for="password__input">Password</label>
           <input
             type="password"
             name="password"
             id="password__input"
+            v-model="password"
+            @keypress="errors.passwordError = false"
             placeholder="Enter your password"
           />
+          <div class="error__message">Please enter the Password</div>
         </div>
         <button class="primary__btn">Register</button>
         <div class="register">
@@ -42,11 +65,25 @@
 </template>
 
 <script>
+import UserService from "@/services/UserService";
 import { mapState } from "vuex";
 import OverlayComVue from "./OverlayCom.vue";
 export default {
   components: {
     OverlayComVue,
+  },
+  data() {
+    return {
+      errors: {
+        usernameError: false,
+        emailError: false,
+        emailInvalidError: false,
+        passwordError: false,
+      },
+      username: null,
+      email: null,
+      password: null,
+    };
   },
   methods: {
     closeRegister() {
@@ -55,6 +92,61 @@ export default {
     showLogin() {
       this.closeRegister();
       this.$store.dispatch("changeShowLogin", true);
+    },
+    resetForm() {
+      this.username = null;
+      this.email = null;
+      this.password = null;
+    },
+    checkForm() {
+      this.errors = [];
+
+      if (!this.username) {
+        this.errors = { ...this.errors, usernameError: true };
+      }
+      if (!this.email) {
+        this.errors = { ...this.errors, emailError: true };
+      } else if (!this.validEmail(this.email)) {
+        this.errors = { ...this.errors, emailInvalidError: true };
+      }
+      if (!this.password) {
+        this.errors = { ...this.errors, passwordError: true };
+      }
+
+      if (
+        !this.errors.emailError &&
+        !this.errors.emailInvalidError &&
+        !this.errors.usernameError &&
+        !this.errors.passwordError
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+    validEmail: function (email) {
+      var re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    register(e) {
+      e.preventDefault();
+      if (this.checkForm()) {
+        UserService.register({
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        })
+          .then((response) => {
+            if (response.status === 201) {
+              this.resetForm();
+              this.showLogin();
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
     },
   },
   computed: mapState(["isShowRegister"]),

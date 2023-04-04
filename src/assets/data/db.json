@@ -29,11 +29,15 @@
     {
       "id": "prod3",
       "name": "Fantastic Rubber Knife",
-      "category": "Makeup",
+      "description": "Aut omnis modi tempore doloribus repellendus quidem est. Qui quia velit id repellendus eum sed officia. Officiis accusantium in veniam nostrum minus consequatur.",
+      "category": "Fragrance",
       "price": "11.56",
+      "rating": 3,
+      "onsale": false,
+      "salePercent": 0,
       "images": ["24_1-460x460.png"],
-      "onsale": true,
-      "salePercent": 20
+      "colors": ["#f4d7b8", "#daa570", "#c6966b", "#976c48"],
+      "sizes": ["35ml", "50ml", "100ml"]
     },
     {
       "id": "prod4",
@@ -56,7 +60,7 @@
     {
       "id": "prod6",
       "name": "Fantastic Rubber Knife",
-      "category": "Makeup",
+      "category": "Skincare",
       "price": "11.56",
       "images": ["23_1-460x460.png"],
       "onsale": false,
@@ -65,7 +69,7 @@
     {
       "id": "prod7",
       "name": "Fantastic Rubber Knife",
-      "category": "Makeup",
+      "category": "Skincare",
       "price": "11.56",
       "images": ["24_1-460x460.png"],
       "onsale": true,
@@ -83,9 +87,16 @@
   ],
   "users": [
     {
+      "id": 1,
       "username": "othman01",
       "email": "othmanou01@gmail.com",
       "password": "othman2023"
+    },
+    {
+      "username": "ahmed",
+      "email": "ahmed01@gmail.com",
+      "password": "ahmed2023",
+      "id": 2
     }
   ]
 }
