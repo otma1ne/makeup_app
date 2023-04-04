@@ -136,7 +136,7 @@ export default {
 
 .product__modal .details__container .product__price {
   margin-top: 15px;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 600;
 }
 
@@ -175,5 +175,35 @@ export default {
   background: black;
   color: white;
   width: 50%;
+}
+
+@media only screen and (max-width: 992px) {
+  .product__modal {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .product__modal .details__container {
+    padding: 20px 40px;
+  }
+
+  .product__modal .details__container svg.close__icon {
+    top: 10px;
+    right: 20px;
+  }
+
+  .product__modal .img__container {
+    position: relative;
+    padding-top: 50%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .product__modal .details__container .product__name {
+    font-size: 20px;
+  }
+  .product__modal .details__container button.primary__btn {
+    width: 100%;
+  }
 }
 </style>

@@ -5,6 +5,7 @@ import ShopView from "../views/ShopView.vue";
 import DetailsView from "../views/DetailsView.vue";
 import CartView from "../views/CartView.vue";
 import NotfoundView from "../views/NotfoundView.vue";
+import CheckoutView from "../views/CheckoutView.vue";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,11 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: CartView,
+  },
+  {
+    path: "/checkout",
+    name: "checkout",
+    component: CheckoutView,
   },
   {
     path: "**",

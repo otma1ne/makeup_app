@@ -33,6 +33,16 @@ export default {
   --textColor: #555;
 }
 
+::-moz-selection {
+  color: white;
+  background: var(--primaryColor);
+}
+
+::selection {
+  color: white;
+  background: var(--primaryColor);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -137,6 +147,18 @@ a {
 
 input[type="text"] {
   padding: 10px 24px;
+  transition: 0.3s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+  border: 2px solid black;
+}
+
+input[type="checkbox"] {
+  accent-color: black;
 }
 
 select {

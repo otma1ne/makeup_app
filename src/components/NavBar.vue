@@ -10,12 +10,11 @@
           </div>
         </router-link>
         <ul class="menu" :class="{ active: isShowMenu }">
-          <li>Home</li>
-          <li>Makeup</li>
-          <li>Skincare</li>
-          <li>Fragrance</li>
-          <li>Body</li>
-          <li>Contact</li>
+          <li><router-link :to="{ name: 'shop' }">Home</router-link></li>
+          <li><router-link :to="{ name: 'shop' }">Makeup</router-link></li>
+          <li><router-link :to="{ name: 'shop' }">Skincare</router-link></li>
+          <li><router-link :to="{ name: 'shop' }">Fragrance</router-link></li>
+          <li><router-link :to="{ name: 'shop' }">Body</router-link></li>
         </ul>
         <div class="icons">
           <searchIcon class="search__icon" @click="showSearch(true)" />
