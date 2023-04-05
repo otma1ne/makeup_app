@@ -2,9 +2,19 @@ import { apiClient } from "./axiosConfig";
 
 export default {
   register(user) {
-    return apiClient.post("/users", user);
+    return apiClient.post("/signup", user);
   },
-  /* getUsers() {
-    return apiClient.get(`/users`);
-  }, */
+
+  login(email, password) {
+    return apiClient.post("/signin", email, password);
+  },
+
+  getUser(token) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return apiClient.get("/user", config);
+  },
 };

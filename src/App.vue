@@ -25,6 +25,12 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchProducts");
+    if (localStorage.getItem("isLoggedin") === "true") {
+      this.$store.dispatch("fetchCart", localStorage.getItem("token"));
+      this.$store.dispatch("changeUserInfo", { isLoggedin: true });
+    } else {
+      this.$store.dispatch("changeUserInfo", { isLoggedin: false });
+    }
   },
 };
 </script>

@@ -90,22 +90,18 @@
               <button @click="handlePlusQuantityClick">+</button>
             </div>
           </div>
-          <button class="primary__btn">Add To Cart</button>
+          <button class="primary__btn" @click="handleAddToCart(product._id)">
+            Add To Cart
+          </button>
         </div>
       </div>
       <div class="related__products">
         <div class="title">Related Products</div>
         <div class="products">
           <ProductCard
-            v-for="relatedProduct in relatedProducts"
-            :key="relatedProduct"
-            :product="{
-              id: 'x',
-              name: 'Fantastic Rubber Knife',
-              category: 'Makeup',
-              price: '11.56',
-              images: ['23_1-460x460.png'],
-            }"
+            v-for="product in relatedProducts"
+            :key="product._id"
+            :product="product"
           />
         </div>
       </div>
@@ -129,7 +125,7 @@ export default {
     return {
       isloading: true,
       product: {},
-      relatedProducts: [1, 2, 3, 4],
+      relatedProducts: [],
       currentIndex: 0,
       quantity: 1,
     };
@@ -141,16 +137,26 @@ export default {
       this.currentIndex = index;
     },
     handlePlusQuantityClick() {
-      this.quantity += 1;
+      if (this.quantity < 10) this.quantity += 1;
     },
     handleMinesQuantityClick() {
-      this.quantity -= 1;
+      if (this.quantity > 1) this.quantity -= 1;
+    },
+    handleAddToCart(productId) {
+      const payload = {
+        token: localStorage.getItem("token"),
+        userId: localStorage.getItem("user_id"),
+        productId: productId,
+        quantity: this.quantity,
+      };
+      this.$store.dispatch("addToCart", payload);
     },
   },
   created() {
     ProductService.getProduct(this.$route.params.id)
       .then((response) => {
-        this.product = response.data;
+        this.product = response.data.product;
+        this.relatedProducts = response.data.relatedProducts;
         this.isloading = false;
       })
       .catch((error) => {

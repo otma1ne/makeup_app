@@ -2,20 +2,20 @@
   <div class="product" :class="{ onsale: product.onsale }">
     <div class="sale">Sale !</div>
     <div class="img__container">
-      <router-link :to="{ name: 'details', params: { id: product.id } }">
+      <router-link :to="{ name: 'details', params: { id: product._id } }">
         <img
           :src="require('@/assets/images/' + product.images[0] + '')"
           alt="product"
         />
       </router-link>
       <div class="icons">
-        <div class="icon__container" @click="showModal">
+        <div class="icon__container" @click="showModal(product)">
           <p>Quick View</p>
           <viewIcon fill="black" width="20" />
         </div>
-        <div class="icon__container">
+        <div class="icon__container" @click="handleAddToCart(product._id)">
           <p>Add to Cart</p>
-          <cartIcon fill="black" width="18" />
+          <cartIcon class="add_tocart" stroke="black" width="18" />
         </div>
         <div class="icon__container">
           <p>Compare</p>
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <router-link :to="{ name: 'details', params: { id: product.id } }">
+    <router-link :to="{ name: 'details', params: { id: product._id } }">
       <div class="content">
         <div class="category">{{ product.category }}</div>
         <div class="name">{{ product.name }}</div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import cartIcon from "@/assets/icons/favorite.svg";
+import cartIcon from "@/assets/icons/add_tocart.svg";
 import viewIcon from "@/assets/icons/eye.svg";
 import compareIcon from "@/assets/icons/refresh.svg";
 export default {
@@ -54,8 +54,18 @@ export default {
     },
   },
   methods: {
-    showModal() {
+    showModal(product) {
+      this.$store.dispatch("setSelectedProduct", product);
       this.$store.dispatch("changeShowProdModal", true);
+    },
+    handleAddToCart(productId) {
+      const payload = {
+        token: localStorage.getItem("token"),
+        userId: localStorage.getItem("user_id"),
+        productId: productId,
+        quantity: this.quantity,
+      };
+      this.$store.dispatch("addToCart", payload);
     },
   },
 };

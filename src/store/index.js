@@ -1,4 +1,6 @@
+import CartService from "@/services/CartService";
 import ProductService from "@/services/ProductService";
+import UserService from "@/services/UserService";
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -9,13 +11,20 @@ export default new Vuex.Store({
     isShowLogin: false,
     isShowRegister: false,
     isShowProductModal: false,
+    user: {
+      id: "",
+      isLoggedin: false,
+    },
+    selectedProduct: {},
     products: [],
     cart: [],
-    user: {},
   },
   getters: {
+    user: (state) => state.user,
+    selectedProduct: (state) => state.selectedProduct,
     products: (state) => state.products,
     cart: (state) => state.cart,
+    cartLength: (state) => state.cart.length,
   },
   mutations: {
     CHANGE_SHOW_LOGIN(state, value) {
@@ -27,11 +36,20 @@ export default new Vuex.Store({
     CHANGE_SHOW_PRODMODAL(state, value) {
       state.isShowProductModal = value;
     },
+    CHANGE_USER_INFO(state, value) {
+      state.user = value;
+    },
+    SET_SELECTED_PRODUCTS(state, product) {
+      state.selectedProduct = product;
+    },
     SET_PRODUCTS(state, products) {
       state.products = products;
     },
     SET_USER(state, user) {
       state.user = user;
+    },
+    SET_CART(state, cart) {
+      state.cart = cart;
     },
   },
   actions: {
@@ -44,6 +62,12 @@ export default new Vuex.Store({
     changeShowProdModal({ commit }, value) {
       commit("CHANGE_SHOW_PRODMODAL", value);
     },
+    changeUserInfo({ commit }, value) {
+      commit("CHANGE_USER_INFO", value);
+    },
+    setSelectedProduct({ commit }, product) {
+      commit("SET_SELECTED_PRODUCTS", product);
+    },
     fetchProducts({ commit }) {
       ProductService.getProducts()
         .then((response) => {
@@ -51,6 +75,42 @@ export default new Vuex.Store({
         })
         .catch((error) => {
           console.error(error.message);
+        });
+    },
+    fetchCart({ commit }, token) {
+      UserService.getUser(token)
+        .then((response) => {
+          commit("SET_CART", response.data.cart);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    addToCart({ commit }, payload) {
+      CartService.addToCart(
+        payload.token,
+        payload.userId,
+        payload.productId,
+        payload.quantity
+      )
+        .then((response) => {
+          commit("SET_CART", response.data.user.cart);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    removeFromCart({ commit }, payload) {
+      CartService.removeFromCart(
+        payload.token,
+        payload.userId,
+        payload.productId
+      )
+        .then((response) => {
+          commit("SET_CART", response.data.user.cart);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
   },

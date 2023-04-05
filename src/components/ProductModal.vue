@@ -3,11 +3,18 @@
     <OverlayComVue :isActive="isShowProductModal" @onclick="closeModal" />
     <div class="product__modal" :class="{ active: isShowProductModal }">
       <div class="img__container">
-        <img :src="require('@/assets/images/' + product.image)" alt="" />
+        <img
+          :src="
+            selectedProduct?.images
+              ? require('@/assets/images/' + selectedProduct?.images[0])
+              : ''
+          "
+          alt=""
+        />
       </div>
       <div class="details__container">
         <closeIcon class="close__icon" width="20" @click="closeModal" />
-        <div class="product__name">Practical Granite Bottle</div>
+        <div class="product__name">{{ selectedProduct.name ?? "" }}</div>
         <AwesomeVueStarRating
           :star="4"
           :hasresults="false"
@@ -16,11 +23,9 @@
           :disabled="true"
         />
         <div class="product__description">
-          Aut omnis modi tempore doloribus repellendus quidem est. Qui quia
-          velit id repellendus eum sed officia. Officiis accusantium in veniam
-          nostrum minus consequatur.
+          {{ selectedProduct.description ?? "" }} {{ selectedProduct.rating }}
         </div>
-        <div class="product__price">$105.50</div>
+        <div class="product__price">${{ selectedProduct.price ?? "" }}</div>
         <div class="quantity">
           <div class="title">Quantity</div>
           <div class="controls">
@@ -29,7 +34,12 @@
             <button @click="handlePlusQuantityClick">+</button>
           </div>
         </div>
-        <button class="primary__btn">Add To Cart</button>
+        <button
+          class="primary__btn"
+          @click="handleAddToCart(selectedProduct._id)"
+        >
+          Add To Cart
+        </button>
       </div>
     </div>
   </div>
@@ -49,12 +59,6 @@ export default {
   },
   data() {
     return {
-      product: {
-        name: "Fantastic Rubber Knife",
-        category: "Makeup",
-        price: "11.56",
-        image: "23_1-460x460.png",
-      },
       quantity: 1,
     };
   },
@@ -63,13 +67,22 @@ export default {
       this.$store.dispatch("changeShowProdModal", false);
     },
     handlePlusQuantityClick() {
-      this.quantity += 1;
+      if (this.quantity < 10) this.quantity += 1;
     },
     handleMinesQuantityClick() {
-      this.quantity -= 1;
+      if (this.quantity > 1) this.quantity -= 1;
+    },
+    handleAddToCart(productId) {
+      const payload = {
+        token: localStorage.getItem("token"),
+        userId: localStorage.getItem("user_id"),
+        productId: productId,
+        quantity: this.quantity,
+      };
+      this.$store.dispatch("addToCart", payload);
     },
   },
-  computed: mapState(["isShowProductModal"]),
+  computed: mapState(["isShowProductModal", "selectedProduct"]),
 };
 </script>
 

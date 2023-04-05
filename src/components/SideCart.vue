@@ -5,11 +5,18 @@
       <div class="cart__header">
         Shoping Cart <closeIcon width="20" @click="closeCart" />
       </div>
-      <div class="cart__body"></div>
-      <div class="cart__footer">
+      <div class="cart__body" v-if="getCartLength > 0">
+        <ProductCartVue
+          v-for="item in getCart"
+          :key="item.product._id"
+          :item="item"
+        />
+      </div>
+      <div class="empty__body" v-else>Your cart is empty</div>
+      <div class="cart__footer" v-if="getCartLength > 0">
         <div class="total">
           <h3>Subtotal</h3>
-          <h3>$0</h3>
+          <h3>${{ calculateTotalPrice }}</h3>
         </div>
         <button class="primary__btn" @click="navigateToCart">View cart</button>
       </div>
@@ -21,9 +28,11 @@
 import OverlayCom from "./OverlayCom.vue";
 import closeIcon from "@/assets/icons/cross.svg";
 import router from "@/router";
+import ProductCartVue from "./ProductCart.vue";
 export default {
   components: {
     OverlayCom,
+    ProductCartVue,
     closeIcon,
   },
   props: {
@@ -39,6 +48,21 @@ export default {
     navigateToCart() {
       this.closeCart();
       router.push({ name: "cart" });
+    },
+  },
+  computed: {
+    getCartLength() {
+      return this.$store.getters.cartLength;
+    },
+    getCart() {
+      return this.$store.getters.cart;
+    },
+    calculateTotalPrice() {
+      let totalPrice = 0;
+      this.$store.getters.cart.forEach((item) => {
+        totalPrice += item.quantity * item.product.price;
+      });
+      return totalPrice.toFixed(2);
     },
   },
 };
@@ -77,6 +101,19 @@ export default {
 .side__cart .cart__header svg {
   fill: var(--textColor);
   cursor: pointer;
+}
+
+.side__cart .cart__body {
+  overflow-y: auto;
+}
+
+.side__cart .empty__body {
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--textColor);
 }
 
 .side__cart .cart__footer {

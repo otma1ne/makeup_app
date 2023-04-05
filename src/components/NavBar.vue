@@ -18,8 +18,15 @@
         </ul>
         <div class="icons">
           <searchIcon class="search__icon" @click="showSearch(true)" />
-          <userIcon class="user__icon" @click="showLogin()" />
-          <cartIcon class="bag__icon" @click="showCart(true)" />
+          <userIcon
+            class="user__icon"
+            @click="showLogin()"
+            v-if="!getUserInfo.isLoggedin"
+          />
+          <div class="cart__icon__container" @click="showCart(true)">
+            <cartIcon class="bag__icon" />
+            <div class="count">{{ getCartLength }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -68,6 +75,14 @@ export default {
     },
     showLogin() {
       this.$store.dispatch("changeShowLogin", true);
+    },
+  },
+  computed: {
+    getUserInfo() {
+      return this.$store.getters.user;
+    },
+    getCartLength() {
+      return this.$store.getters.cartLength;
     },
   },
 };
@@ -132,6 +147,29 @@ nav .container .icons .user__icon {
 nav .container .icons .bag__icon,
 nav .container .icons .search__icon {
   width: 20px;
+}
+
+nav .container .icons .cart__icon__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+nav .container .icons .cart__icon__container .count {
+  position: absolute;
+  bottom: -5px;
+  left: -5px;
+  background: red;
+  color: white;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (max-width: 992px) {

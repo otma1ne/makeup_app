@@ -8,7 +8,7 @@
       <div class="product__container">
         <ProductCard
           v-for="product in products"
-          :key="product.id"
+          :key="product._id"
           :product="product"
         />
       </div>

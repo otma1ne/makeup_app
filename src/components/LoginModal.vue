@@ -4,24 +4,30 @@
     <div class="login__container" :class="{ active: isShowLogin }">
       <div class="title">Sign In</div>
       <div class="sub__title">Welcome back again !</div>
-      <form>
-        <div class="input__labled">
+      <form @submit="login">
+        <div class="input__labled" :class="{ error: errors.emailError }">
           <label for="email">Email</label>
           <input
             type="text"
             name="email"
             id="email"
             placeholder="Enter your email"
+            v-model="email"
+            @keypress="errors.emailError = false"
           />
+          <div class="error__message">Please enter the email</div>
         </div>
-        <div class="input__labled">
+        <div class="input__labled" :class="{ error: errors.passwordError }">
           <label for="password">Password</label>
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Enter your password"
+            v-model="password"
+            @keypress="errors.passwordError = false"
           />
+          <div class="error__message">Please enter the Password</div>
           <p>Lost your password ?</p>
         </div>
         <button class="primary__btn">Login</button>
@@ -36,9 +42,20 @@
 <script>
 import OverlayComVue from "./OverlayCom.vue";
 import { mapState } from "vuex";
+import UserService from "@/services/UserService";
 export default {
   components: {
     OverlayComVue,
+  },
+  data() {
+    return {
+      errors: {
+        emailError: false,
+        passwordError: false,
+      },
+      email: null,
+      password: null,
+    };
   },
   methods: {
     closeLogin() {
@@ -47,6 +64,51 @@ export default {
     showRegister() {
       this.closeLogin();
       this.$store.dispatch("changeShowRegister", true);
+    },
+    resetForm() {
+      this.email = null;
+      this.password = null;
+    },
+    checkForm() {
+      this.errors = [];
+
+      if (!this.email) {
+        this.errors = { ...this.errors, emailError: true };
+      }
+      if (!this.password) {
+        this.errors = { ...this.errors, passwordError: true };
+      }
+
+      if (!this.errors.emailError && !this.errors.passwordError) {
+        return true;
+      }
+
+      return false;
+    },
+    login(e) {
+      e.preventDefault();
+      if (this.checkForm()) {
+        UserService.login({
+          email: this.email,
+          password: this.password,
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              this.$store.dispatch("changeUserInfo", {
+                id: response.data.user._id,
+                isLoggedin: true,
+              });
+              this.resetForm();
+              this.closeLogin();
+              localStorage.setItem("user_id", response.data.user._id);
+              localStorage.setItem("isLoggedin", true);
+              localStorage.setItem("token", response.data.token);
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
     },
   },
   computed: mapState(["isShowLogin"]),
