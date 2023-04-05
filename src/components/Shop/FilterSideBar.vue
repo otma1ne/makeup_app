@@ -6,7 +6,18 @@
         <div class="filter__item">
           <div class="title">Product Category</div>
           <ul>
-            <li v-for="category in productsCategories" :key="category.name">
+            <li
+              :class="{ active: activeFilter === 'All' }"
+              @click="setCategory('All')"
+            >
+              All <span>({{ products.length }})</span>
+            </li>
+            <li
+              v-for="category in productsCategories"
+              :key="category.name"
+              :class="{ active: activeFilter === category.name }"
+              @click="setCategory(category.name)"
+            >
               {{ category.name }} <span>({{ category.count }})</span>
             </li>
           </ul>
@@ -32,6 +43,9 @@ export default {
       type: Boolean,
       required: true,
     },
+    activeFilter: {
+      type: String,
+    },
   },
   components: {
     OverlayCom,
@@ -44,6 +58,9 @@ export default {
   methods: {
     closeFilter() {
       this.$emit("closeFilter");
+    },
+    setCategory(category) {
+      this.$emit("setCategory", category);
     },
   },
   computed: {
@@ -62,6 +79,9 @@ export default {
         count: categoryCount[categoryName],
       }));
       return categories;
+    },
+    products() {
+      return this.$store.getters.products;
     },
   },
 };
@@ -104,11 +124,18 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+}
+
+.filter__sidebar .filter__item ul li.active {
+  color: var(--primaryColor);
+  text-decoration: underline;
 }
 
 .filter__sidebar .filter__item ul li span {
   font-size: 10px;
   color: var(--textColor);
+  text-decoration: none;
 }
 
 .filter__sidebar .filter__item .price__filter {

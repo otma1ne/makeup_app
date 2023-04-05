@@ -1,5 +1,5 @@
 <template>
-  <section class="best__sellers">
+  <section class="best__sellers" v-if="products.length > 0">
     <div class="max__width">
       <div class="title">
         <div class="sup__title">Best Beauty</div>

@@ -1,9 +1,5 @@
 <template>
-  <section
-    class="details"
-    :class="{ onsale: product.onsale }"
-    v-if="product && !isloading"
-  >
+  <section class="details" :class="{ onsale: product.onsale }">
     <div class="breadcrumb">
       <div class="max__width">
         <ul>
@@ -20,7 +16,7 @@
         </ul>
       </div>
     </div>
-    <div class="max__width">
+    <div class="max__width" v-if="product && !isloading">
       <div class="container">
         <div class="imgs__container">
           <div class="sale">Sale !</div>
@@ -104,6 +100,11 @@
             :product="product"
           />
         </div>
+      </div>
+    </div>
+    <div class="max__width" v-if="isloading">
+      <div class="loader__container">
+        <img src="@/assets/icons/squares_loader.gif" alt="loader" />
       </div>
     </div>
   </section>
@@ -192,6 +193,18 @@ export default {
 
 .details .breadcrumb ul li:last-child svg {
   display: none;
+}
+
+.details .loader__container {
+  width: 100%;
+  height: calc(100vh - 104px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details .loader__container img {
+  width: 50px;
 }
 
 .details .sale {

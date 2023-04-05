@@ -8,13 +8,19 @@
       </ul>
     </div>
     <div class="max__width">
-      <div class="cart__container" v-if="cartProducts.length > 0">
+      <div class="cart__container" v-if="getCartLength > 0">
         <div class="products__container">
           <div class="products__container__header">
             <h4>Products</h4>
             <h4>Quantity</h4>
           </div>
-          <div class="products__container__body"></div>
+          <div class="products__container__body">
+            <ProductCart2Vue
+              v-for="item in getCartProduct"
+              :key="item.product._id"
+              :product="item.product"
+            />
+          </div>
         </div>
         <div class="total__container">
           <div class="total__container__header">
@@ -23,7 +29,7 @@
           <div class="total__container__body">
             <div class="item">
               <div class="name">Subtotal</div>
-              <div class="value">$150</div>
+              <div class="value">${{ calculateTotalPrice }}</div>
             </div>
             <div class="item">
               <div class="name">Shipping</div>
@@ -31,7 +37,7 @@
             </div>
             <div class="item">
               <div class="name">Total</div>
-              <div class="value">$150</div>
+              <div class="value">${{ calculateTotalPrice }}</div>
             </div>
             <button class="primary__btn">Proceed to Chekout</button>
           </div>
@@ -52,19 +58,31 @@
 import chevronIcon from "@/assets/icons/chevron right 1.svg";
 import emptycartIcon from "@/assets/icons/empty_cart.svg";
 import router from "@/router";
+import ProductCart2Vue from "@/components/ProductCart2.vue";
 export default {
   components: {
     chevronIcon,
     emptycartIcon,
-  },
-  data() {
-    return {
-      cartProducts: [],
-    };
+    ProductCart2Vue,
   },
   methods: {
     navigateToHome() {
       router.push({ name: "home" });
+    },
+  },
+  computed: {
+    getCartLength() {
+      return this.$store.getters.cartLength;
+    },
+    getCartProduct() {
+      return this.$store.getters.cart;
+    },
+    calculateTotalPrice() {
+      let totalPrice = 0;
+      this.$store.getters.cart.forEach((item) => {
+        totalPrice += item.quantity * item.product.price;
+      });
+      return totalPrice.toFixed(2);
     },
   },
 };
@@ -117,8 +135,8 @@ export default {
 }
 
 .cart .cart__container .products__container .products__container__header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 142px;
 }
 
 .cart .cart__container .products__container .products__container__header h4,
@@ -129,8 +147,15 @@ export default {
 .cart .cart__container .products__container .products__container__body,
 .cart .cart__container .total__container .total__container__body {
   margin-top: 20px;
-  height: 300px;
   border: 1px solid #eee;
+}
+
+.cart
+  .cart__container
+  .products__container
+  .products__container__body
+  .product:last-child {
+  border: none;
 }
 
 .cart .cart__container .total__container .total__container__body {

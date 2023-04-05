@@ -11,7 +11,9 @@
       <div class="shop__container">
         <FilterSideBar
           :isShowFilter="isShowFilter"
+          :activeFilter="activeFilter"
           @closeFilter="showFilter(false)"
+          @setCategory="setCategory"
         />
         <div class="products__container">
           <div class="header">
@@ -22,14 +24,16 @@
               >
                 <filterIcon />
               </button>
-              <select>
-                <option value="default">Default Sorting</option>
+              <select v-model="activeSorting">
+                <option value="default" selected>Default Sorting</option>
                 <option value="name">Sort By name</option>
                 <option value="price_asc">Sort By price Asc</option>
                 <option value="price_desc">Sort By price Desc</option>
               </select>
             </div>
-            <div class="info">Showing 12 of 16</div>
+            <div class="info">
+              Showing {{ products.length }} of {{ products.length }}
+            </div>
           </div>
           <div class="products">
             <ProductCard
@@ -60,16 +64,41 @@ export default {
   data() {
     return {
       isShowFilter: false,
+      activeFilter: "All",
+      activeSorting: "default",
     };
   },
   methods: {
     showFilter(value) {
       this.isShowFilter = value;
     },
+    setCategory(category) {
+      console.log(category);
+      this.activeFilter = category;
+    },
   },
   computed: {
     products() {
-      return this.$store.getters.products;
+      let sortedProducts = [...this.$store.getters.products]; // make a copy of the original products array to avoid mutating it directly
+      if (this.activeFilter !== "All") {
+        sortedProducts = sortedProducts.filter(
+          (product) => product.category === this.activeFilter
+        );
+      }
+      switch (this.activeSorting) {
+        case "name":
+          sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case "price_asc":
+          sortedProducts.sort((a, b) => a.price - b.price);
+          break;
+        case "price_desc":
+          sortedProducts.sort((a, b) => b.price - a.price);
+          break;
+        default:
+          break;
+      }
+      return sortedProducts;
     },
   },
 };
