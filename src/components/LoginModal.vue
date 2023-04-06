@@ -30,7 +30,13 @@
           <div class="error__message">Please enter the Password</div>
           <p>Lost your password ?</p>
         </div>
-        <button class="primary__btn">Login</button>
+        <div class="login_error" v-if="logginError !== ''">
+          {{ logginError }}
+        </div>
+        <button class="primary__btn" :disabled="isLoading">
+          {{ !isLoading ? "Login" : "" }}
+          <img v-if="isLoading" src="@/assets/icons/spinner.gif" alt="loader" />
+        </button>
         <div class="register">
           Don't have an account ? <span @click="showRegister">register</span>
         </div>
@@ -55,11 +61,14 @@ export default {
       },
       email: null,
       password: null,
+      isLoading: false,
+      logginError: "",
     };
   },
   methods: {
     closeLogin() {
       this.$store.dispatch("changeShowLogin", false);
+      this.resetForm();
     },
     showRegister() {
       this.closeLogin();
@@ -88,14 +97,17 @@ export default {
     login(e) {
       e.preventDefault();
       if (this.checkForm()) {
+        this.isLoading = true;
         UserService.login({
           email: this.email,
           password: this.password,
         })
           .then((response) => {
+            this.isLoading = false;
             if (response.status === 200) {
               this.$store.dispatch("changeUserInfo", {
                 id: response.data.user._id,
+                username: response.data.user.username,
                 email: response.data.user.email,
                 isLoggedin: true,
               });
@@ -108,6 +120,8 @@ export default {
             }
           })
           .catch((e) => {
+            this.isLoading = false;
+            this.logginError = e.response.data.error;
             console.log(e);
           });
       }
@@ -174,11 +188,28 @@ export default {
   cursor: pointer;
 }
 
-.primary__btn {
+.login__container .login_error {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: red;
+}
+
+.login__container .primary__btn {
   margin-top: 30px;
   padding: 6px 12px;
   width: 100%;
   background: black;
   color: white;
+  min-height: 37px;
+}
+
+.login__container .primary__btn img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  object-fit: cover;
 }
 </style>

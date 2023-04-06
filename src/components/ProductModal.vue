@@ -40,6 +40,7 @@
         >
           Add To Cart
         </button>
+        <div class="error" v-if="loginError !== ''">{{ this.loginError }}</div>
       </div>
     </div>
   </div>
@@ -60,11 +61,13 @@ export default {
   data() {
     return {
       quantity: 1,
+      loginError: "",
     };
   },
   methods: {
     closeModal() {
       this.$store.dispatch("changeShowProdModal", false);
+      this.loginError = "";
     },
     handlePlusQuantityClick() {
       if (this.quantity < 10) this.quantity += 1;
@@ -73,16 +76,20 @@ export default {
       if (this.quantity > 1) this.quantity -= 1;
     },
     handleAddToCart(productId) {
-      const payload = {
-        token: localStorage.getItem("token"),
-        userId: localStorage.getItem("user_id"),
-        productId: productId,
-        quantity: this.quantity,
-      };
-      this.$store.dispatch("addToCart", payload);
+      if (this.user.isLoggedin) {
+        const payload = {
+          token: localStorage.getItem("token"),
+          userId: localStorage.getItem("user_id"),
+          productId: productId,
+          quantity: this.quantity,
+        };
+        this.$store.dispatch("addToCart", payload);
+      } else {
+        this.loginError = "You must be logged in";
+      }
     },
   },
-  computed: mapState(["isShowProductModal", "selectedProduct"]),
+  computed: mapState(["isShowProductModal", "selectedProduct", "user"]),
 };
 </script>
 
@@ -188,6 +195,12 @@ export default {
   background: black;
   color: white;
   width: 50%;
+}
+
+.product__modal .details__container .error {
+  font-size: 14px;
+  margin-top: 20px;
+  color: red;
 }
 
 @media only screen and (max-width: 992px) {

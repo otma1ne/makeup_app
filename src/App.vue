@@ -4,6 +4,7 @@
     <LoginModalVue />
     <RegisterModal />
     <ProductModal />
+    <AlertModal />
     <router-view />
     <FooterSection />
   </div>
@@ -15,6 +16,7 @@ import LoginModalVue from "./components/LoginModal.vue";
 import RegisterModal from "./components/RegisterModal.vue";
 import ProductModal from "./components/ProductModal.vue";
 import UserService from "./services/UserService";
+import AlertModal from "./components/AlertModal.vue";
 
 export default {
   components: {
@@ -23,6 +25,7 @@ export default {
     LoginModalVue,
     RegisterModal,
     ProductModal,
+    AlertModal,
   },
   created() {
     this.$store.dispatch("fetchProducts");

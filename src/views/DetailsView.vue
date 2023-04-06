@@ -144,13 +144,17 @@ export default {
       if (this.quantity > 1) this.quantity -= 1;
     },
     handleAddToCart(productId) {
-      const payload = {
-        token: localStorage.getItem("token"),
-        userId: localStorage.getItem("user_id"),
-        productId: productId,
-        quantity: this.quantity,
-      };
-      this.$store.dispatch("addToCart", payload);
+      if (this.getUser.isLoggedin) {
+        const payload = {
+          token: localStorage.getItem("token"),
+          userId: localStorage.getItem("user_id"),
+          productId: productId,
+          quantity: this.quantity,
+        };
+        this.$store.dispatch("addToCart", payload);
+      } else {
+        this.$store.dispatch("changeShowAlertModal", true);
+      }
     },
   },
   created() {
@@ -164,6 +168,11 @@ export default {
         console.log(error);
         this.isloading = false;
       });
+  },
+  computed: {
+    getUser() {
+      return this.$store.getters.user;
+    },
   },
 };
 </script>

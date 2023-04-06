@@ -1,6 +1,7 @@
 <template>
   <nav>
     <OverlayCom :isActive="isShowMenu" @onclick="showMenu(false)" />
+    <OverlayCom :isActive="isShowUserInfo" @onclick="showUserInfo(false)" />
     <div class="max__width">
       <div class="container">
         <menuIcon class="menu__icon" @click="showMenu(true)" />
@@ -17,12 +18,16 @@
           <li><router-link :to="{ name: 'shop' }">Body</router-link></li>
         </ul>
         <div class="icons">
-          <searchIcon class="search__icon" @click="showSearch(true)" />
-          <userIcon
-            class="user__icon"
-            @click="showLogin()"
-            v-if="!getUserInfo.isLoggedin"
-          />
+          <div class="icon" @click="showSearch(true)">
+            <searchIcon class="search__icon" />
+          </div>
+          <div class="icon user__icon" @click="handleAvatarClick()">
+            <userIcon />
+            <UserinfoModalVue
+              :isActive="isShowUserInfo"
+              @closemodal="showUserInfo(false)"
+            />
+          </div>
           <div class="cart__icon__container" @click="showCart(true)">
             <cartIcon class="bag__icon" />
             <div class="count">{{ getCartLength }}</div>
@@ -44,6 +49,7 @@ import SideCart from "./SideCart.vue";
 import SearchCom from "./SearchCom.vue";
 import menuIcon from "@/assets/icons/burger_menu.svg";
 import OverlayCom from "./OverlayCom.vue";
+import UserinfoModalVue from "./UserinfoModal.vue";
 
 export default {
   components: {
@@ -55,12 +61,14 @@ export default {
     SideCart,
     SearchCom,
     OverlayCom,
+    UserinfoModalVue,
   },
   data() {
     return {
       isShowCart: false,
       isShowSearch: false,
       isShowMenu: false,
+      isShowUserInfo: false,
     };
   },
   methods: {
@@ -73,8 +81,15 @@ export default {
     showMenu(value) {
       this.isShowMenu = value;
     },
-    showLogin() {
-      this.$store.dispatch("changeShowLogin", true);
+    showUserInfo(value) {
+      this.isShowUserInfo = value;
+    },
+    handleAvatarClick() {
+      if (!this.getUserInfo.isLoggedin) {
+        this.$store.dispatch("changeShowLogin", true);
+      } else {
+        this.showUserInfo(true);
+      }
     },
   },
   computed: {
@@ -136,11 +151,17 @@ nav .container .icons {
   gap: 20px;
 }
 
+nav .container .icons .icon {
+  display: flex;
+  align-items: center;
+}
+
 nav .container .icons svg {
   cursor: pointer;
 }
 
 nav .container .icons .user__icon {
+  position: relative;
   width: 18px;
 }
 

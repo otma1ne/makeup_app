@@ -7,7 +7,10 @@
         <li>Chekout</li>
       </ul>
     </div>
-    <div class="max__width" v-if="calculateTotalPrice > 0 && !isCheckout">
+    <div
+      class="max__width"
+      v-if="calculateTotalPrice > 0 && !isCheckout && getUser.isLoggedin"
+    >
       <div class="checkout__container">
         <div class="payment__container">
           <div class="title">Payment details</div>
@@ -159,16 +162,33 @@
         </div>
       </div>
     </div>
-    <div class="max__width" v-if="calculateTotalPrice == 0 && isCheckout">
+    <div
+      class="max__width"
+      v-if="calculateTotalPrice == 0 && isCheckout && getUser.isLoggedin"
+    >
       <ThanksComVue />
     </div>
-    <div class="max__width" v-if="calculateTotalPrice == 0 && !isCheckout">
+    <div
+      class="max__width"
+      v-if="calculateTotalPrice == 0 && !isCheckout && getUser.isLoggedin"
+    >
       <div class="empty">
         <emptycartIcon width="150" height="150" />
         <div class="title">Your cart is currently empty.</div>
         <button class="primary__btn" @click="navigateToHome()">
           Return to shop
         </button>
+      </div>
+    </div>
+    <div class="max__width" v-if="!getUser.isLoggedin">
+      <div class="login__container">
+        <AlertIcon class="icon" width="60" />
+        <div class="alert__title">You must be logged in</div>
+        <div class="sub__title">
+          In order to be able to add products to your cart, you must be logged
+          in
+        </div>
+        <button class="primary__btn" @click="handleLoginClick">Login</button>
       </div>
     </div>
   </section>
@@ -178,6 +198,7 @@
 import chevronIcon from "@/assets/icons/chevron right 1.svg";
 import ThanksComVue from "@/components/Checkout/ThanksCom.vue";
 import emptycartIcon from "@/assets/icons/empty_cart.svg";
+import AlertIcon from "@/assets/icons/alert.svg";
 import router from "@/router";
 
 export default {
@@ -185,6 +206,7 @@ export default {
     chevronIcon,
     ThanksComVue,
     emptycartIcon,
+    AlertIcon,
   },
   data() {
     return {
@@ -282,6 +304,9 @@ export default {
     },
     navigateToHome() {
       router.push({ name: "home" });
+    },
+    handleLoginClick() {
+      this.$store.dispatch("changeShowLogin", true);
     },
   },
   computed: {
@@ -447,6 +472,37 @@ export default {
 .checkout .empty .title {
   font-size: 16px;
   font-weight: 500;
+}
+.checkout .login__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(70vh - 104px);
+  flex-direction: column;
+}
+.checkout .login__container .icon {
+  stroke: black;
+}
+
+.checkout .login__container .alert__title {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.checkout .login__container .sub__title {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--textColor);
+}
+
+.checkout .login__container .primary__btn {
+  margin-top: 30px;
+  background: black;
+  color: white;
+  min-width: 120px;
 }
 
 @media screen and (max-width: 992px) {

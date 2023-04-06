@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <closeIcon width="16" @click="handleRemoveCart(item.product._id)" />
+    <closeIcon width="16" @click="handleRemoveCart(product._id)" />
     <div class="product__details">
       <div class="img__container">
         <img
@@ -39,6 +39,14 @@ export default {
   },
 
   methods: {
+    handleRemoveCart(productId) {
+      const payload = {
+        token: localStorage.getItem("token"),
+        userId: localStorage.getItem("user_id"),
+        productId,
+      };
+      this.$store.dispatch("removeFromCart", payload);
+    },
     handlePlusQuantityClick() {
       const payload = {
         token: localStorage.getItem("token"),

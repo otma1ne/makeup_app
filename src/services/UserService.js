@@ -9,6 +9,15 @@ export default {
     return apiClient.post("/signin", email, password);
   },
 
+  logout(token) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return apiClient.post("/logout", config);
+  },
+
   getUser(token) {
     const config = {
       headers: {

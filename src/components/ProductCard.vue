@@ -59,13 +59,22 @@ export default {
       this.$store.dispatch("changeShowProdModal", true);
     },
     handleAddToCart(productId) {
-      const payload = {
-        token: localStorage.getItem("token"),
-        userId: localStorage.getItem("user_id"),
-        productId: productId,
-        quantity: this.quantity,
-      };
-      this.$store.dispatch("addToCart", payload);
+      if (this.getUser.isLoggedin) {
+        const payload = {
+          token: localStorage.getItem("token"),
+          userId: localStorage.getItem("user_id"),
+          productId: productId,
+          quantity: this.quantity,
+        };
+        this.$store.dispatch("addToCart", payload);
+      } else {
+        this.$store.dispatch("changeShowAlertModal", true);
+      }
+    },
+  },
+  computed: {
+    getUser() {
+      return this.$store.getters.user;
     },
   },
 };

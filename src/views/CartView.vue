@@ -8,7 +8,10 @@
       </ul>
     </div>
     <div class="max__width">
-      <div class="cart__container" v-if="getCartLength > 0">
+      <div
+        class="cart__container"
+        v-if="getCartLength > 0 && getUser.isLoggedin"
+      >
         <div class="products__container">
           <div class="products__container__header">
             <h4>Products</h4>
@@ -46,12 +49,23 @@
           </div>
         </div>
       </div>
-      <div class="empty" v-else>
+      <div class="empty" v-if="getCartLength == 0 && getUser.isLoggedin">
         <emptycartIcon width="150" height="150" />
         <div class="title">Your cart is currently empty.</div>
         <button class="primary__btn" @click="navigateToHome()">
           Return to shop
         </button>
+      </div>
+      <div class="max__width" v-if="!getUser.isLoggedin">
+        <div class="login__container">
+          <AlertIcon class="icon" width="60" />
+          <div class="alert__title">You must be logged in</div>
+          <div class="sub__title">
+            In order to be able to add products to your cart, you must be logged
+            in
+          </div>
+          <button class="primary__btn" @click="handleLoginClick">Login</button>
+        </div>
       </div>
     </div>
   </section>
@@ -62,11 +76,13 @@ import chevronIcon from "@/assets/icons/chevron right 1.svg";
 import emptycartIcon from "@/assets/icons/empty_cart.svg";
 import router from "@/router";
 import ProductCart2Vue from "@/components/ProductCart2.vue";
+import AlertIcon from "@/assets/icons/alert.svg";
 export default {
   components: {
     chevronIcon,
     emptycartIcon,
     ProductCart2Vue,
+    AlertIcon,
   },
   methods: {
     navigateToHome() {
@@ -75,8 +91,14 @@ export default {
     navigateToCheckout() {
       router.push({ name: "checkout" });
     },
+    handleLoginClick() {
+      this.$store.dispatch("changeShowLogin", true);
+    },
   },
   computed: {
+    getUser() {
+      return this.$store.getters.user;
+    },
     getCartLength() {
       return this.$store.getters.cartLength;
     },
@@ -200,6 +222,38 @@ export default {
 .cart .empty .title {
   font-size: 16px;
   font-weight: 500;
+}
+
+.cart .login__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(70vh - 104px);
+  flex-direction: column;
+}
+.cart .login__container .icon {
+  stroke: black;
+}
+
+.cart .login__container .alert__title {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.cart .login__container .sub__title {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--textColor);
+}
+
+.cart .login__container .primary__btn {
+  margin-top: 30px;
+  background: black;
+  color: white;
+  min-width: 120px;
 }
 
 @media screen and (max-width: 1200px) {

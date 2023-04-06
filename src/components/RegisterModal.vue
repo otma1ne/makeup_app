@@ -55,7 +55,13 @@
           />
           <div class="error__message">Please enter the Password</div>
         </div>
-        <button class="primary__btn">Register</button>
+        <div class="login_error" v-if="registerError !== ''">
+          {{ registerError }}
+        </div>
+        <button class="primary__btn">
+          {{ !isLoading ? "Register" : "" }}
+          <img v-if="isLoading" src="@/assets/icons/spinner.gif" alt="loader" />
+        </button>
         <div class="register">
           Already have an ccount ? <span @click="showLogin">login</span>
         </div>
@@ -83,11 +89,14 @@ export default {
       username: null,
       email: null,
       password: null,
+      isLoading: false,
+      registerError: "",
     };
   },
   methods: {
     closeRegister() {
       this.$store.dispatch("changeShowRegister", false);
+      this.resetForm();
     },
     showLogin() {
       this.closeRegister();
@@ -132,18 +141,22 @@ export default {
     register(e) {
       e.preventDefault();
       if (this.checkForm()) {
+        this.isLoading = true;
         UserService.register({
           username: this.username,
           email: this.email,
           password: this.password,
         })
           .then((response) => {
+            this.isLoading = false;
             if (response.status === 201) {
               this.resetForm();
               this.showLogin();
             }
           })
           .catch((e) => {
+            this.isLoading = false;
+            this.registerError = e.response.data.error;
             console.log(e);
           });
       }
@@ -207,11 +220,28 @@ export default {
   cursor: pointer;
 }
 
-.primary__btn {
+.register__container .login_error {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: red;
+}
+
+.register__container .primary__btn {
   margin-top: 30px;
   padding: 6px 12px;
   width: 100%;
   background: black;
   color: white;
+  min-height: 37px;
+}
+
+.register__container .primary__btn img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  object-fit: cover;
 }
 </style>

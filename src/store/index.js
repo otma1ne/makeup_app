@@ -11,8 +11,10 @@ export default new Vuex.Store({
     isShowLogin: false,
     isShowRegister: false,
     isShowProductModal: false,
+    isShowAlerModal: false,
     checkOutCart: false,
     user: {
+      id: "",
       username: "",
       email: "test",
       isLoggedin: false,
@@ -39,6 +41,9 @@ export default new Vuex.Store({
     CHANGE_SHOW_PRODMODAL(state, value) {
       state.isShowProductModal = value;
     },
+    CHANGE_SHOW_ALERTMODAL(state, value) {
+      state.isShowAlerModal = value;
+    },
     CHANGE_USER_INFO(state, user) {
       state.user = user;
     },
@@ -64,6 +69,9 @@ export default new Vuex.Store({
     },
     changeShowProdModal({ commit }, value) {
       commit("CHANGE_SHOW_PRODMODAL", value);
+    },
+    changeShowAlertModal({ commit }, value) {
+      commit("CHANGE_SHOW_ALERTMODAL", value);
     },
     changeUserInfo({ commit }, user) {
       commit("CHANGE_USER_INFO", user);
@@ -97,6 +105,7 @@ export default new Vuex.Store({
         payload.quantity
       )
         .then((response) => {
+          console.log(response);
           commit("SET_CART", response.data.user.cart);
         })
         .catch((error) => {
@@ -139,6 +148,9 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error);
         });
+    },
+    clearCart({ commit }) {
+      commit("SET_CART", []);
     },
   },
   modules: {},
