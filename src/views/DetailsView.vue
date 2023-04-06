@@ -252,6 +252,7 @@ export default {
           .then((response) => {
             if (response.status === 201) {
               this.product = response.data;
+              this.comment = "";
             }
           })
           .catch((error) => {

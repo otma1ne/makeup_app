@@ -225,10 +225,14 @@ select {
   border: 1px solid red;
 }
 
-.input__labled input,
-.input__labled textarea {
+.input__labled input {
   transition: 0.3s ease-in-out;
   padding: 6px 16px;
+}
+
+.input__labled textarea {
+  transition: 0.3s ease-in-out;
+  padding: 10px 16px;
 }
 /* Responsive styles */
 
