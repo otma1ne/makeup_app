@@ -168,7 +168,8 @@ a {
   bottom: 0;
 }
 
-input[type="text"] {
+input[type="text"],
+textarea {
   padding: 10px 24px;
   transition: 0.3s ease-in-out;
 }
@@ -224,7 +225,8 @@ select {
   border: 1px solid red;
 }
 
-.input__labled input {
+.input__labled input,
+.input__labled textarea {
   transition: 0.3s ease-in-out;
   padding: 6px 16px;
 }

@@ -91,6 +91,99 @@
           </button>
         </div>
       </div>
+      <div class="reviews">
+        <div class="title">Reviews</div>
+        <div class="reviews__form">
+          <div class="reviews__container">
+            <div class="review">
+              <div class="img__container">
+                <img
+                  src="@/assets/images/Profile_avatar_placeholder_large.png"
+                  alt="profile_avatar"
+                />
+              </div>
+              <div class="content">
+                <div class="rating">
+                  <AwesomeVueStarRating
+                    :star="3"
+                    :hasresults="false"
+                    :hasdescription="false"
+                    :starsize="'xs'"
+                    :disabled="true"
+                  />
+                </div>
+                <div class="username__date">
+                  Othman01, <span>24May2023</span>
+                </div>
+                <div class="review__text">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. At
+                  modi vero sint veritatis eveniet reprehenderit hic doloremque
+                  rerum molestiae distinctio.
+                </div>
+              </div>
+            </div>
+            <div class="review">
+              <div class="img__container">
+                <img
+                  src="@/assets/images/Profile_avatar_placeholder_large.png"
+                  alt="profile_avatar"
+                />
+              </div>
+              <div class="content">
+                <div class="rating">
+                  <AwesomeVueStarRating
+                    :star="3"
+                    :hasresults="false"
+                    :hasdescription="false"
+                    :starsize="'xs'"
+                    :disabled="true"
+                  />
+                </div>
+                <div class="username__date">
+                  Othman01, <span>24May2023</span>
+                </div>
+                <div class="review__text">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. At
+                  modi vero sint veritatis eveniet reprehenderit hic doloremque
+                  rerum molestiae distinctio.
+                </div>
+              </div>
+            </div>
+          </div>
+          <form @submit="addReview">
+            <div class="input__labled">
+              <div class="label">Your rating</div>
+              <AwesomeVueStarRating
+                :star="1"
+                :hasresults="false"
+                :hasdescription="false"
+                :starsize="'xs'"
+              />
+            </div>
+            <div class="input__labled">
+              <div class="label">You review</div>
+              <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="8"
+                placeholder="Enter the review"
+              ></textarea>
+            </div>
+            <div class="input__flex">
+              <div class="input__labled">
+                <div class="label">Username</div>
+                <input type="text" placeholder="Enter the username" />
+              </div>
+              <div class="input__labled">
+                <div class="label">Email</div>
+                <input type="text" placeholder="Enter the email" />
+              </div>
+            </div>
+            <button class="primary__btn">Submit</button>
+          </form>
+        </div>
+      </div>
       <div class="related__products" v-if="relatedProducts.length > 0">
         <div class="title">Related Products</div>
         <div class="products">
@@ -155,6 +248,9 @@ export default {
       } else {
         this.$store.dispatch("changeShowAlertModal", true);
       }
+    },
+    addReview(e) {
+      e.preventDefault();
     },
   },
   created() {
@@ -401,7 +497,77 @@ export default {
   width: 100%;
   max-width: 200px;
 }
+.details .reviews {
+  margin-top: 60px;
+}
 
+.details .reviews .title {
+  font-size: 20px;
+}
+
+.details .reviews__form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.details .reviews__container .review {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 20px;
+}
+
+.details .reviews__container .review .img__container {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.details .reviews__container .review .img__container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details .reviews__container .review .content .username__date {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.details .reviews__container .review .content .username__date span {
+  font-weight: 400;
+  color: var(--textColor);
+  font-size: 12px;
+}
+
+.details .reviews__container .review .content .review__text {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.details .reviews__form form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.details .reviews__form form .input__flex {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.details .reviews__form form .input__flex .input__labled {
+  width: 100%;
+}
+
+.details .reviews__form form button.primary__btn {
+  margin-top: 20px;
+}
 .details .related__products {
   margin-top: 100px;
 }
@@ -439,6 +605,10 @@ export default {
 @media only screen and (max-width: 1250px) {
   .details .related__products .products {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .details .reviews__form {
+    grid-template-columns: 1fr;
   }
 }
 
