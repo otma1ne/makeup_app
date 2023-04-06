@@ -105,7 +105,6 @@ export default new Vuex.Store({
         payload.quantity
       )
         .then((response) => {
-          console.log(response);
           commit("SET_CART", response.data.user.cart);
         })
         .catch((error) => {

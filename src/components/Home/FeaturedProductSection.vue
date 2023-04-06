@@ -19,39 +19,8 @@
           class="swiper"
           id="featured__product__swiper"
         >
-          <swiper-slide>
-            <ProductCard
-              :product="{
-                id: 'x',
-                name: 'Fantastic Rubber Knife',
-                category: 'Makeup',
-                price: '11.56',
-                images: ['23_1-460x460.png'],
-                onsale: true,
-              }"
-            />
-          </swiper-slide>
-          <swiper-slide>
-            <ProductCard
-              :product="{
-                id: 'x',
-                name: 'Fantastic Rubber Knife',
-                category: 'Makeup',
-                price: '11.56',
-                images: ['24_1-460x460.png'],
-              }"
-            />
-          </swiper-slide>
-          <swiper-slide
-            ><ProductCard
-              :product="{
-                id: 'x',
-                name: 'Fantastic Rubber Knife',
-                category: 'Makeup',
-                price: '11.56',
-                images: ['23_1-460x460.png'],
-              }"
-            />
+          <swiper-slide v-for="product in products" :key="product._id">
+            <ProductCard :product="product" />
           </swiper-slide>
         </swiper-container>
       </div>
@@ -89,6 +58,11 @@ export default {
 
     Object.assign(swiperEl, swiperParams);
     swiperEl.initialize();
+  },
+  computed: {
+    products() {
+      return this.$store.getters.products;
+    },
   },
 };
 </script>
