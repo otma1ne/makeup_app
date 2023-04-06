@@ -10,7 +10,7 @@
       </div>
       <div class="info">
         <div class="name">{{ product.name }}</div>
-        <div class="price">{{ product.price }}</div>
+        <div class="price">{{ product.sale_price }}</div>
       </div>
     </div>
     <div class="controls">

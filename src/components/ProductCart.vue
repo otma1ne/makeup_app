@@ -6,7 +6,7 @@
     <div class="details">
       <div class="name">{{ item.product.name }}</div>
       <div class="quantity">
-        <div class="price">{{ item.product.price }}</div>
+        <div class="price">{{ item.product.sale_price }}</div>
         x {{ item.quantity }}
       </div>
     </div>

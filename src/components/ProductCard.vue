@@ -29,7 +29,7 @@
         <div class="name">{{ product.name }}</div>
 
         <div class="price saled">
-          <div class="discount__price">$9.99</div>
+          <div class="discount__price">${{ product.sale_price }}</div>
           <div class="init__price">${{ product.price }}</div>
         </div>
       </div>

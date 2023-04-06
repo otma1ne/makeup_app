@@ -56,7 +56,7 @@
           />
           <div class="product__description">{{ product.description }}</div>
           <div class="product__price">
-            <div class="discount__price">$9.99</div>
+            <div class="discount__price">${{ product.sale_price }}</div>
             <div class="init__price">${{ product.price }}</div>
           </div>
           <div class="product__colors">
@@ -91,11 +91,15 @@
           </button>
         </div>
       </div>
-      <div class="reviews">
+      <div class="reviews" v-if="product.reviews.length > 0">
         <div class="title">Reviews</div>
         <div class="reviews__form">
           <div class="reviews__container">
-            <div class="review">
+            <div
+              class="review"
+              v-for="review in product.reviews"
+              :key="review._id"
+            >
               <div class="img__container">
                 <img
                   src="@/assets/images/Profile_avatar_placeholder_large.png"
@@ -105,7 +109,7 @@
               <div class="content">
                 <div class="rating">
                   <AwesomeVueStarRating
-                    :star="3"
+                    :star="review.rating"
                     :hasresults="false"
                     :hasdescription="false"
                     :starsize="'xs'"
@@ -113,39 +117,10 @@
                   />
                 </div>
                 <div class="username__date">
-                  Othman01, <span>24May2023</span>
+                  {{ review.name }}, <span>{{ convertDate(review.date) }}</span>
                 </div>
                 <div class="review__text">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. At
-                  modi vero sint veritatis eveniet reprehenderit hic doloremque
-                  rerum molestiae distinctio.
-                </div>
-              </div>
-            </div>
-            <div class="review">
-              <div class="img__container">
-                <img
-                  src="@/assets/images/Profile_avatar_placeholder_large.png"
-                  alt="profile_avatar"
-                />
-              </div>
-              <div class="content">
-                <div class="rating">
-                  <AwesomeVueStarRating
-                    :star="3"
-                    :hasresults="false"
-                    :hasdescription="false"
-                    :starsize="'xs'"
-                    :disabled="true"
-                  />
-                </div>
-                <div class="username__date">
-                  Othman01, <span>24May2023</span>
-                </div>
-                <div class="review__text">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. At
-                  modi vero sint veritatis eveniet reprehenderit hic doloremque
-                  rerum molestiae distinctio.
+                  {{ review.comment }}
                 </div>
               </div>
             </div>
@@ -173,11 +148,12 @@
             <div class="input__flex">
               <div class="input__labled">
                 <div class="label">Username</div>
-                <input type="text" placeholder="Enter the username" />
-              </div>
-              <div class="input__labled">
-                <div class="label">Email</div>
-                <input type="text" placeholder="Enter the email" />
+                <input
+                  type="text"
+                  placeholder="Enter the username"
+                  readonly
+                  :value="getUser.username"
+                />
               </div>
             </div>
             <button class="primary__btn">Submit</button>
@@ -251,6 +227,29 @@ export default {
     },
     addReview(e) {
       e.preventDefault();
+    },
+    convertDate(dateparam) {
+      let date = new Date(dateparam);
+
+      let months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      let day = date.getUTCDate();
+      let month = months[date.getUTCMonth()];
+      let year = date.getUTCFullYear();
+      let formattedDate = `${day}${month}${year}`;
+      return formattedDate;
     },
   },
   created() {

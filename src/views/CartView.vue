@@ -108,7 +108,7 @@ export default {
     calculateTotalPrice() {
       let totalPrice = 0;
       this.$store.getters.cart.forEach((item) => {
-        totalPrice += item.quantity * item.product.price;
+        totalPrice += item.quantity * item.product.sale_price;
       });
       return totalPrice.toFixed(2);
     },
