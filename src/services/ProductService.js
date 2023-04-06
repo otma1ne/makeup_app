@@ -7,4 +7,8 @@ export default {
   getProduct(id) {
     return apiClient.get(`/products/${id}`);
   },
+
+  searchproduct(name) {
+    return apiClient.get("/products/search?query=" + name);
+  },
 };
