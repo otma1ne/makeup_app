@@ -48,6 +48,7 @@ export default {
   z-index: 11;
   display: none;
   padding: 40px;
+  width: calc(100% - 30px);
   max-width: 500px;
 }
 

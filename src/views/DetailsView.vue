@@ -3,14 +3,20 @@
     <div class="breadcrumb">
       <div class="max__width">
         <ul>
-          <li>Home <chevronIcon width="18" height="18" fill="f4f4f4" /></li>
-          <li>Shop <chevronIcon width="18" height="18" fill="f4f4f4" /></li>
           <li>
-            {{ product.category }}
+            <span>Home </span
+            ><chevronIcon width="18" height="18" fill="f4f4f4" />
+          </li>
+          <li>
+            <span>Shop</span>
             <chevronIcon width="18" height="18" fill="f4f4f4" />
           </li>
           <li>
-            {{ product.name }}
+            <span>{{ product.category }}</span>
+            <chevronIcon width="18" height="18" fill="f4f4f4" />
+          </li>
+          <li>
+            <span>{{ product.name }}</span>
             <chevronIcon width="18" height="18" fill="f4f4f4" />
           </li>
         </ul>
@@ -343,6 +349,14 @@ export default {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.details .breadcrumb ul li span {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .details .breadcrumb ul li:last-child svg {

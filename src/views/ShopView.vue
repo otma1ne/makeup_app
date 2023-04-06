@@ -90,10 +90,10 @@ export default {
           sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
           break;
         case "price_asc":
-          sortedProducts.sort((a, b) => a.price - b.price);
+          sortedProducts.sort((a, b) => a.sale_price - b.sale_price);
           break;
         case "price_desc":
-          sortedProducts.sort((a, b) => b.price - a.price);
+          sortedProducts.sort((a, b) => b.sale_price - a.sale_price);
           break;
         default:
           break;
