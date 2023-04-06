@@ -11,4 +11,8 @@ export default {
   searchproduct(name) {
     return apiClient.get("/products/search?query=" + name);
   },
+
+  postReview(productId, review) {
+    return apiClient.post(`/products/${productId}/reviews`, review);
+  },
 };

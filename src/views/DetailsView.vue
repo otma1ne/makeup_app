@@ -129,31 +129,37 @@
             <div class="input__labled">
               <div class="label">Your rating</div>
               <AwesomeVueStarRating
-                :star="1"
-                :hasresults="false"
+                :star="rating"
+                :hasresults="true"
                 :hasdescription="false"
                 :starsize="'xs'"
+                @click="console.log($event)"
               />
             </div>
-            <div class="input__labled">
-              <div class="label">You review</div>
+            <div class="input__labled" :class="{ error: errors.commentError }">
+              <div class="label">Your comment</div>
               <textarea
-                name=""
-                id=""
+                v-model="comment"
+                @keypress="errors.commentError = false"
                 cols="30"
                 rows="8"
-                placeholder="Enter the review"
+                placeholder="Enter the comment"
               ></textarea>
+              <div class="error__message">Please enter the comment</div>
             </div>
             <div class="input__flex">
-              <div class="input__labled">
+              <div
+                class="input__labled"
+                :class="{ error: errors.usernameError }"
+              >
                 <div class="label">Username</div>
                 <input
                   type="text"
                   placeholder="Enter the username"
-                  readonly
-                  :value="getUser.username"
+                  @keypress="errors.usernameError = false"
+                  v-model="getUser.username"
                 />
+                <div class="error__message">Please enter the username</div>
               </div>
             </div>
             <button class="primary__btn">Submit</button>
@@ -198,6 +204,12 @@ export default {
       relatedProducts: [],
       currentIndex: 0,
       quantity: 1,
+      comment: null,
+      rating: 3,
+      errors: {
+        usernameError: false,
+        commentError: false,
+      },
     };
   },
   methods: {
@@ -227,10 +239,43 @@ export default {
     },
     addReview(e) {
       e.preventDefault();
+      const rating = document.querySelector(
+        ".reviews .input__labled .rating span"
+      ).textContent;
+      if (this.checkForm()) {
+        const review = {
+          name: this.getUser.username,
+          comment: this.comment,
+          rating: rating[0],
+        };
+        ProductService.postReview(this.product._id, review)
+          .then((response) => {
+            if (response.status === 201) {
+              this.product = response.data;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    checkForm() {
+      this.errors = [];
+      if (!this.comment) {
+        this.errors = { ...this.errors, commentError: true };
+      }
+
+      if (!this.getUser.username) {
+        this.errors = { ...this.errors, usernameError: true };
+      }
+
+      if (!this.errors.commentError && !this.errors.usernameError) {
+        return true;
+      }
+      return false;
     },
     convertDate(dateparam) {
       let date = new Date(dateparam);
-
       let months = [
         "Jan",
         "Feb",
@@ -248,8 +293,12 @@ export default {
       let day = date.getUTCDate();
       let month = months[date.getUTCMonth()];
       let year = date.getUTCFullYear();
-      let formattedDate = `${day}${month}${year}`;
+      let formattedDate = `${day} ${month} ${year}`;
       return formattedDate;
+    },
+    handleRatingClick(newRating) {
+      this.rating = newRating;
+      console.log(`User rating: ${this.rating}`);
     },
   },
   created() {
@@ -657,5 +706,9 @@ export default {
 }
 .rating .list:hover .star:not(.active) {
   color: #e1e1e1;
+}
+
+.details .reviews__form form .rating span {
+  display: none;
 }
 </style>
