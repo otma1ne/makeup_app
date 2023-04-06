@@ -96,8 +96,10 @@ export default {
             if (response.status === 200) {
               this.$store.dispatch("changeUserInfo", {
                 id: response.data.user._id,
+                email: response.data.user.email,
                 isLoggedin: true,
               });
+              this.$store.dispatch("fetchCart", response.data.token);
               this.resetForm();
               this.closeLogin();
               localStorage.setItem("user_id", response.data.user._id);

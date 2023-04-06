@@ -19,6 +19,7 @@
               v-for="item in getCartProduct"
               :key="item.product._id"
               :product="item.product"
+              :quantity="item.quantity"
             />
           </div>
         </div>
@@ -39,7 +40,9 @@
               <div class="name">Total</div>
               <div class="value">${{ calculateTotalPrice }}</div>
             </div>
-            <button class="primary__btn">Proceed to Chekout</button>
+            <button class="primary__btn" @click="navigateToCheckout">
+              Proceed to Chekout
+            </button>
           </div>
         </div>
       </div>
@@ -68,6 +71,9 @@ export default {
   methods: {
     navigateToHome() {
       router.push({ name: "home" });
+    },
+    navigateToCheckout() {
+      router.push({ name: "checkout" });
     },
   },
   computed: {

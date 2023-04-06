@@ -14,6 +14,7 @@ import FooterSection from "./components/FooterSection.vue";
 import LoginModalVue from "./components/LoginModal.vue";
 import RegisterModal from "./components/RegisterModal.vue";
 import ProductModal from "./components/ProductModal.vue";
+import UserService from "./services/UserService";
 
 export default {
   components: {
@@ -26,8 +27,18 @@ export default {
   created() {
     this.$store.dispatch("fetchProducts");
     if (localStorage.getItem("isLoggedin") === "true") {
+      UserService.getUser(localStorage.getItem("token"))
+        .then((response) => {
+          this.$store.dispatch("changeUserInfo", {
+            username: response.data.username,
+            email: response.data.email,
+            isLoggedin: true,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       this.$store.dispatch("fetchCart", localStorage.getItem("token"));
-      this.$store.dispatch("changeUserInfo", { isLoggedin: true });
     } else {
       this.$store.dispatch("changeUserInfo", { isLoggedin: false });
     }

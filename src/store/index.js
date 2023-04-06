@@ -11,8 +11,10 @@ export default new Vuex.Store({
     isShowLogin: false,
     isShowRegister: false,
     isShowProductModal: false,
+    checkOutCart: false,
     user: {
-      id: "",
+      username: "",
+      email: "test",
       isLoggedin: false,
     },
     selectedProduct: {},
@@ -25,6 +27,7 @@ export default new Vuex.Store({
     products: (state) => state.products,
     cart: (state) => state.cart,
     cartLength: (state) => state.cart.length,
+    checkOutCart: (state) => state.checkOutCart,
   },
   mutations: {
     CHANGE_SHOW_LOGIN(state, value) {
@@ -36,8 +39,8 @@ export default new Vuex.Store({
     CHANGE_SHOW_PRODMODAL(state, value) {
       state.isShowProductModal = value;
     },
-    CHANGE_USER_INFO(state, value) {
-      state.user = value;
+    CHANGE_USER_INFO(state, user) {
+      state.user = user;
     },
     SET_SELECTED_PRODUCTS(state, product) {
       state.selectedProduct = product;
@@ -45,11 +48,11 @@ export default new Vuex.Store({
     SET_PRODUCTS(state, products) {
       state.products = products;
     },
-    SET_USER(state, user) {
-      state.user = user;
-    },
     SET_CART(state, cart) {
       state.cart = cart;
+    },
+    SET_CHECKOUT(state, value) {
+      state.checkOutCart = value;
     },
   },
   actions: {
@@ -62,8 +65,8 @@ export default new Vuex.Store({
     changeShowProdModal({ commit }, value) {
       commit("CHANGE_SHOW_PRODMODAL", value);
     },
-    changeUserInfo({ commit }, value) {
-      commit("CHANGE_USER_INFO", value);
+    changeUserInfo({ commit }, user) {
+      commit("CHANGE_USER_INFO", user);
     },
     setSelectedProduct({ commit }, product) {
       commit("SET_SELECTED_PRODUCTS", product);
@@ -100,6 +103,20 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    changeCart({ commit }, payload) {
+      CartService.changeQuantity(
+        payload.token,
+        payload.userId,
+        payload.productId,
+        payload.quantity
+      )
+        .then((response) => {
+          commit("SET_CART", response.data.user.cart);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     removeFromCart({ commit }, payload) {
       CartService.removeFromCart(
         payload.token,
@@ -108,6 +125,16 @@ export default new Vuex.Store({
       )
         .then((response) => {
           commit("SET_CART", response.data.user.cart);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    checkoutCart({ commit }, payload) {
+      CartService.checkOutCart(payload.token, payload.userId)
+        .then((response) => {
+          commit("SET_CART", response.data.user.cart);
+          commit("SET_CHECKOUT", true);
         })
         .catch((error) => {
           console.log(error);

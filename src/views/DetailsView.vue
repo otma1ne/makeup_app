@@ -91,7 +91,7 @@
           </button>
         </div>
       </div>
-      <div class="related__products">
+      <div class="related__products" v-if="relatedProducts.length > 0">
         <div class="title">Related Products</div>
         <div class="products">
           <ProductCard

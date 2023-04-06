@@ -1,5 +1,6 @@
 <template>
   <div class="product">
+    <closeIcon width="16" @click="handleRemoveCart(item.product._id)" />
     <div class="product__details">
       <div class="img__container">
         <img
@@ -13,36 +14,75 @@
       </div>
     </div>
     <div class="controls">
-      <button>-</button>
-      <input type="text" v-model="quantity" readonly />
-      <button>+</button>
+      <button @click="handleMinusQuantityClick">-</button>
+      <input type="text" :value="quantity" readonly />
+      <button @click="handlePlusQuantityClick">+</button>
     </div>
   </div>
 </template>
 
 <script>
+import closeIcon from "@/assets/icons/cross.svg";
 export default {
+  components: {
+    closeIcon,
+  },
   props: {
     product: {
       type: Object,
       required: true,
     },
+    quantity: {
+      type: Number,
+      required: true,
+    },
   },
-  data() {
-    return {
-      quantity: 1,
-    };
+
+  methods: {
+    handlePlusQuantityClick() {
+      const payload = {
+        token: localStorage.getItem("token"),
+        userId: localStorage.getItem("user_id"),
+        productId: this.product._id,
+        quantity: this.quantity + 1,
+      };
+      if (this.quantity < 10) {
+        this.$store.dispatch("changeCart", payload);
+      }
+    },
+    handleMinusQuantityClick() {
+      const payload = {
+        token: localStorage.getItem("token"),
+        userId: localStorage.getItem("user_id"),
+        productId: this.product._id,
+        quantity: this.quantity - 1,
+      };
+      if (this.quantity > 1) {
+        this.$store.dispatch("changeCart", payload);
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
 .product {
+  position: relative;
   padding: 20px;
   border-bottom: 1px solid #f1f1f1;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  row-gap: 20px;
   justify-content: space-between;
+}
+
+.product svg {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  fill: var(--textColor);
+  cursor: pointer;
 }
 .product .product__details {
   display: flex;

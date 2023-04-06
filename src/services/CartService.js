@@ -14,6 +14,20 @@ export default {
     return apiClient.post(`/user/${userId}/cart`, product, config);
   },
 
+  changeQuantity(token, userId, productId, quantity) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    return apiClient.put(
+      `/user/${userId}/cart/${productId}/quantity`,
+      { quantity },
+      config
+    );
+  },
+
   removeFromCart(token, userId, productId) {
     const config = {
       headers: {
@@ -21,5 +35,14 @@ export default {
       },
     };
     return apiClient.put(`/user/${userId}/cart/${productId}`, config);
+  },
+
+  checkOutCart(token, userId) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return apiClient.post(`/user/${userId}/cart/checkout`, config);
   },
 };
