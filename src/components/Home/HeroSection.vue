@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="slide__img">
-          <img src="@/assets/images/revslider_h1_img-1.jpg" alt="slide bg" />
+          <img src="@/assets/images/revslider_h1_img-1.webp" alt="slide bg" />
         </div>
       </swiper-slide>
       <swiper-slide class="swiper__slide two">
@@ -75,7 +75,7 @@
           </div>
         </div>
         <div class="slide__img">
-          <img src="@/assets/images/revslider_h1_img-2.jpg" alt="slide bg" />
+          <img src="@/assets/images/revslider_h1_img-2.webp" alt="slide bg" />
         </div>
       </swiper-slide>
       <swiper-slide class="swiper__slide three">
@@ -108,7 +108,7 @@
           </div>
         </div>
         <div class="slide__img">
-          <img src="@/assets/images/revslider_h1_img-3.jpg" alt="slide bg" />
+          <img src="@/assets/images/revslider_h1_img-3.webp" alt="slide bg" />
         </div>
       </swiper-slide>
     </swiper-container>

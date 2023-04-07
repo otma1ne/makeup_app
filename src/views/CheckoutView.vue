@@ -338,7 +338,7 @@ export default {
   align-items: center;
   gap: 4px;
   padding: 80px 0;
-  background: url(@/assets/images/Breadcrumb_bg.jpg);
+  background: url(@/assets/images/Breadcrumb_bg.webp);
   background-position: center;
   background-size: cover;
 }

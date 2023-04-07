@@ -65,7 +65,7 @@
             <div class="discount__price">${{ product.sale_price }}</div>
             <div class="init__price">${{ product.price }}</div>
           </div>
-          <div class="product__colors">
+          <div class="product__colors" v-if="product['colors'].length > 0">
             <div class="title">Colors</div>
             <div class="colors">
               <div
@@ -76,7 +76,7 @@
               ></div>
             </div>
           </div>
-          <div class="product__sizes">
+          <div class="product__sizes" v-if="product['sizes'].length > 0">
             <div class="title">Sizes</div>
             <div class="sizes">
               <div class="size" v-for="size in product['sizes']" :key="size">
@@ -308,22 +308,32 @@ export default {
       this.rating = newRating;
       console.log(`User rating: ${this.rating}`);
     },
-  },
-  created() {
-    ProductService.getProduct(this.$route.params.id)
-      .then((response) => {
-        this.product = response.data.product;
-        this.relatedProducts = response.data.relatedProducts;
-        this.isloading = false;
-      })
-      .catch((error) => {
-        console.log(error);
-        this.isloading = false;
-      });
+    getProductDetails(id) {
+      this.isloading = true;
+      ProductService.getProduct(id)
+        .then((response) => {
+          this.product = response.data.product;
+          this.relatedProducts = response.data.relatedProducts;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isloading = false;
+        });
+    },
   },
   computed: {
     getUser() {
       return this.$store.getters.user;
+    },
+  },
+  watch: {
+    "$route.params.id": {
+      handler(newId) {
+        this.getProductDetails(newId);
+      },
+      immediate: true,
     },
   },
 };

@@ -40,22 +40,22 @@ export default {
         {
           name: "Makeup",
           number: "12",
-          image: "h1_cat-1.jpg",
+          image: "h1_cat-1.webp",
         },
         {
           name: "Skincare",
           number: "16",
-          image: "h1_cat-2.jpg",
+          image: "h1_cat-2.webp",
         },
         {
           name: "Fragrance",
           number: "10",
-          image: "h1_cat-3.jpg",
+          image: "h1_cat-3.webp",
         },
         {
           name: "Body",
           number: "10",
-          image: "h1_cat-4.jpg",
+          image: "h1_cat-4.webp",
         },
       ],
     };
