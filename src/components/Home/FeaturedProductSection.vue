@@ -10,7 +10,9 @@
             Lorem ipsum dolor sit amet, adipiscing elit, sed do eiusmod tempor
             incididunt.
           </div>
-          <button class="secondary__btn">View All Product</button>
+          <button class="secondary__btn" @click="navigateToShop">
+            View All Product
+          </button>
         </div>
         <swiper-container
           slides-per-view="1"
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import ProductCard from "../ProductCard.vue";
 
 export default {
@@ -62,6 +65,11 @@ export default {
   computed: {
     products() {
       return this.$store.getters.products.slice(0, 3);
+    },
+  },
+  methods: {
+    navigateToShop() {
+      router.push({ name: "shop" });
     },
   },
 };

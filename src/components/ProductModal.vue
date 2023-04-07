@@ -70,6 +70,7 @@ export default {
     closeModal() {
       this.$store.dispatch("changeShowProdModal", false);
       this.loginError = "";
+      this.quantity = 0;
     },
     handlePlusQuantityClick() {
       if (this.quantity < 10) this.quantity += 1;
@@ -89,6 +90,7 @@ export default {
       } else {
         this.loginError = "You must be logged in";
       }
+      this.quantity = 0;
     },
   },
   computed: mapState(["isShowProductModal", "selectedProduct", "user"]),

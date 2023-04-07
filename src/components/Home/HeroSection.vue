@@ -34,6 +34,7 @@
                 class="secondary__btn"
                 data-aos="fade-right"
                 data-aos-delay="1200"
+                @click="navigateToShop"
               >
                 Shop Now
               </button>
@@ -68,6 +69,7 @@
                 class="secondary__btn"
                 data-aos="fade-right"
                 data-aos-delay="1200"
+                @click="navigateToShop"
               >
                 Shop Now
               </button>
@@ -101,6 +103,7 @@
                 class="secondary__btn"
                 data-aos="fade-right"
                 data-aos-delay="1200"
+                @click="navigateToShop"
               >
                 Shop Now
               </button>
@@ -119,6 +122,7 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import $ from "jquery";
+import router from "@/router";
 AOS.init();
 
 export default {
@@ -159,6 +163,11 @@ export default {
       onSlideChangeTransitionStart,
       onSlideChangeTransitionEnd,
     };
+  },
+  methods: {
+    navigateToShop() {
+      router.push({ name: "shop" });
+    },
   },
 };
 </script>

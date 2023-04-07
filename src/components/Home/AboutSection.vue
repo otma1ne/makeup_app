@@ -40,7 +40,9 @@
             <li><worldIcon />Eco-Friendly</li>
             <li><humidityIcon />Hypoallergenic</li>
           </ul>
-          <button class="primary__btn">Discover Now</button>
+          <button class="primary__btn" @click="navigateToShop">
+            Discover Now
+          </button>
         </div>
       </div>
     </div>
@@ -52,12 +54,18 @@ import humidityIcon from "@/assets/icons/humidity.svg";
 import worldIcon from "@/assets/icons/world_2.svg";
 import carbsIcon from "@/assets/icons/Carbs.svg";
 import diamondIcon from "@/assets/icons/Dimond_alt_fill.svg";
+import router from "@/router";
 export default {
   components: {
     worldIcon,
     humidityIcon,
     carbsIcon,
     diamondIcon,
+  },
+  methods: {
+    navigateToShop() {
+      router.push({ name: "shop" });
+    },
   },
 };
 </script>
