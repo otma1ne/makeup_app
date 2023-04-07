@@ -2,7 +2,7 @@
   <section class="category">
     <div class="category__container">
       <router-link
-        :to="{ name: 'shop' }"
+        :to="{ name: 'shop', params: { category: category.name } }"
         v-for="category in categories"
         :key="category.name"
       >

@@ -24,10 +24,20 @@
         </div>
         <div class="filter__item">
           <div class="title">Filter by price</div>
-          <input class="price__filter" type="range" :value="filterPrice" />
+          <input
+            class="price__filter"
+            type="range"
+            v-model="filterPrice"
+            :max="maxPrice"
+            step="50"
+          />
           <div class="price__info">
-            <p>Price : $<span>0</span> - $<span>100</span></p>
-            <button class="primary__btn">Filter</button>
+            <p>
+              Price : $<span>{{ filterPrice }}</span> - $<span>{{
+                maxPrice
+              }}</span>
+            </p>
+            <button class="primary__btn" @click="setPrice">Filter</button>
           </div>
         </div>
       </div>
@@ -52,7 +62,7 @@ export default {
   },
   data() {
     return {
-      filterPrice: 100,
+      filterPrice: 0,
     };
   },
   methods: {
@@ -61,6 +71,9 @@ export default {
     },
     setCategory(category) {
       this.$emit("setCategory", category);
+    },
+    setPrice() {
+      this.$emit("setMinPrice", this.filterPrice);
     },
   },
   computed: {
@@ -82,6 +95,14 @@ export default {
     },
     products() {
       return this.$store.getters.products;
+    },
+    maxPrice() {
+      const products = this.$store.getters.products;
+      if (products.length > 0) {
+        return Math.max(...products.map((product) => product.sale_price));
+      } else {
+        return 0;
+      }
     },
   },
 };

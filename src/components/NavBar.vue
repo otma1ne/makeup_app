@@ -12,10 +12,28 @@
         </router-link>
         <ul class="menu" :class="{ active: isShowMenu }">
           <li><router-link :to="{ name: 'home' }">Home</router-link></li>
-          <li><router-link :to="{ name: 'shop' }">Makeup</router-link></li>
-          <li><router-link :to="{ name: 'shop' }">Skincare</router-link></li>
-          <li><router-link :to="{ name: 'shop' }">Fragrance</router-link></li>
-          <li><router-link :to="{ name: 'shop' }">Body</router-link></li>
+          <li>
+            <router-link :to="{ name: 'shop', params: { category: 'Makeup' } }"
+              >Makeup</router-link
+            >
+          </li>
+          <li>
+            <router-link
+              :to="{ name: 'shop', params: { category: 'Skincare' } }"
+              >Skincare</router-link
+            >
+          </li>
+          <li>
+            <router-link
+              :to="{ name: 'shop', params: { category: 'Fragrance' } }"
+              >Fragrance</router-link
+            >
+          </li>
+          <li>
+            <router-link :to="{ name: 'shop', params: { category: 'Body' } }"
+              >Body</router-link
+            >
+          </li>
         </ul>
         <div class="icons">
           <div class="icon" @click="showSearch(true)">

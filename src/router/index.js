@@ -17,7 +17,7 @@ const routes = [
     meta: { title: "Makeup - home" },
   },
   {
-    path: "/shop",
+    path: "/shop/:category?",
     name: "shop",
     component: ShopView,
     meta: { title: "Makeup - shop" },

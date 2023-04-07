@@ -14,6 +14,7 @@
           :activeFilter="activeFilter"
           @closeFilter="showFilter(false)"
           @setCategory="setCategory"
+          @setMinPrice="setMinPrice"
         />
         <div class="products__container">
           <div class="header">
@@ -66,6 +67,7 @@ export default {
       isShowFilter: false,
       activeFilter: "All",
       activeSorting: "default",
+      minPrice: 0,
     };
   },
   methods: {
@@ -73,17 +75,36 @@ export default {
       this.isShowFilter = value;
     },
     setCategory(category) {
-      console.log(category);
       this.activeFilter = category;
+    },
+    setMinPrice(value) {
+      this.minPrice = value;
+    },
+  },
+  watch: {
+    "$route.params.category": {
+      handler(newCat) {
+        this.setCategory(newCat ? newCat : "All");
+      },
+      immediate: true,
     },
   },
   computed: {
     products() {
-      let sortedProducts = [...this.$store.getters.products]; // make a copy of the original products array to avoid mutating it directly
+      let sortedProducts = [...this.$store.getters.products];
       if (this.activeFilter !== "All") {
         sortedProducts = sortedProducts.filter(
           (product) => product.category === this.activeFilter
         );
+      }
+      if (this.minPrice) {
+        sortedProducts = sortedProducts.filter((product) => {
+          console.log("filter product sale price" + product.sale_price);
+          console.log("min price" + this.minPrice);
+          return parseInt(product.sale_price) >= this.minPrice;
+        });
+        console.log("Filter products");
+        console.log(sortedProducts);
       }
       switch (this.activeSorting) {
         case "name":
