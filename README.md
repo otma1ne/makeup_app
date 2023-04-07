@@ -27,6 +27,6 @@ npm run lint
 ### Demo
 
 ```
-<a href="https://makeup01.netlify.app/">Live Preview</a>
+https://makeup01.netlify.app/
 
 ```
