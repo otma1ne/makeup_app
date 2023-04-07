@@ -12,7 +12,12 @@
           :item="item"
         />
       </div>
-      <div class="empty__body" v-else>Your cart is empty</div>
+      <div class="empty__body" v-if="getCartLength == 0 && getUser.isLoggedin">
+        Your cart is empty
+      </div>
+      <div class="empty__body" v-if="getCartLength == 0 && !getUser.isLoggedin">
+        Your are not logged in
+      </div>
       <div class="cart__footer" v-if="getCartLength > 0">
         <div class="total">
           <h3>Subtotal</h3>
@@ -51,6 +56,9 @@ export default {
     },
   },
   computed: {
+    getUser() {
+      return this.$store.getters.user;
+    },
     getCartLength() {
       return this.$store.getters.cartLength;
     },
