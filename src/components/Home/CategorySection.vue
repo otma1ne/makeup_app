@@ -1,21 +1,29 @@
 <template>
   <section class="category">
     <div class="category__container">
-      <div class="card" v-for="category in categories" :key="category.name">
-        <img
-          :src="require('@/assets/images/' + category.image + '')"
-          alt="Category"
-        />
-        <div class="content">
-          <div>
-            <div class="name">{{ category.name }}</div>
-            <div class="number">{{ category.number }} Product</div>
-          </div>
-          <div class="icon__container">
-            <ChevronLeft width="30" />
+      <router-link
+        :to="{ name: 'shop' }"
+        v-for="category in categories"
+        :key="category.name"
+      >
+        <div class="card">
+          <img
+            :src="require('@/assets/images/' + category.image + '')"
+            alt="Category"
+          />
+          <div class="content">
+            <div>
+              <div class="name">{{ category.name }}</div>
+              <div class="number">
+                {{ productsCategoriesCount(category.name) }} Product
+              </div>
+            </div>
+            <div class="icon__container">
+              <ChevronLeft width="30" />
+            </div>
           </div>
         </div>
-      </div>
+      </router-link>
     </div>
   </section>
 </template>
@@ -45,12 +53,24 @@ export default {
           image: "h1_cat-3.jpg",
         },
         {
-          name: "Bath & body",
+          name: "Body",
           number: "10",
           image: "h1_cat-4.jpg",
         },
       ],
     };
+  },
+  methods: {
+    productsCategoriesCount(category) {
+      let count = 0;
+      const products = this.$store.getters.products;
+      products.map((product) => {
+        if (product.category === category) {
+          count++;
+        }
+      });
+      return count;
+    },
   },
 };
 </script>
