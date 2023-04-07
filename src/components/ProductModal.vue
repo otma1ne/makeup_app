@@ -25,7 +25,9 @@
         <div class="product__description">
           {{ selectedProduct.description ?? "" }} {{ selectedProduct.rating }}
         </div>
-        <div class="product__price">${{ selectedProduct.price ?? "" }}</div>
+        <div class="product__price">
+          ${{ selectedProduct.sale_price ?? "" }}
+        </div>
         <div class="quantity">
           <div class="title">Quantity</div>
           <div class="controls">
@@ -131,7 +133,7 @@ export default {
 
 .product__modal .details__container {
   position: relative;
-  padding: 40px 0;
+  padding: 40px 20px 40px 0;
 }
 
 .product__modal .details__container svg.close__icon {

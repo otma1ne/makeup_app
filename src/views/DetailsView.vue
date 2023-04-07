@@ -31,7 +31,7 @@
               <img
                 v-for="(image, index) in product['images']"
                 :key="index"
-                :src="require('@/assets/images/' + image)"
+                :src="require('@/assets/images/' + image + '')"
                 :class="{ active: currentIndex === index }"
                 @click="handleImageClick(index)"
                 alt="product"
