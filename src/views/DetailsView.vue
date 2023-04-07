@@ -97,10 +97,10 @@
           </button>
         </div>
       </div>
-      <div class="reviews" v-if="product.reviews.length > 0">
+      <div class="reviews">
         <div class="title">Reviews</div>
         <div class="reviews__form">
-          <div class="reviews__container">
+          <div class="reviews__container" v-if="product.reviews.length > 0">
             <div
               class="review"
               v-for="review in product.reviews"
@@ -131,6 +131,7 @@
               </div>
             </div>
           </div>
+          <div class="empty__review" v-else>No review</div>
           <form @submit="addReview">
             <div class="input__labled">
               <div class="label">Your rating</div>
@@ -572,6 +573,12 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
+}
+
+.details .reviews__form .empty__review {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--textColor);
 }
 
 .details .reviews__container .review {
