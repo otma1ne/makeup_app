@@ -63,7 +63,7 @@
           <div class="product__description">{{ product.description }}</div>
           <div class="product__price">
             <div class="discount__price">${{ product.sale_price }}</div>
-            <div class="init__price">${{ product.price }}</div>
+            <div class="init__price">${{ product.price.toFixed(2) }}</div>
           </div>
           <div class="product__colors" v-if="product['colors'].length > 0">
             <div class="title">Colors</div>

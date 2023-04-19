@@ -30,7 +30,7 @@
 
         <div class="price saled">
           <div class="discount__price">${{ product.sale_price }}</div>
-          <div class="init__price">${{ product.price }}</div>
+          <div class="init__price">${{ product.price.toFixed(2) }}</div>
         </div>
       </div>
     </router-link>
