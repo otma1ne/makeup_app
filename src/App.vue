@@ -236,6 +236,17 @@ select {
   transition: 0.3s ease-in-out;
   padding: 10px 16px;
 }
+
+.rating .list .star:not(.active) {
+  color: #e1e1e1;
+}
+.rating .list:hover .star:not(.active) {
+  color: #e1e1e1;
+}
+
+.details .reviews__form form .rating span {
+  display: none;
+}
 /* Responsive styles */
 
 @media only screen and (max-width: 1200px) {
