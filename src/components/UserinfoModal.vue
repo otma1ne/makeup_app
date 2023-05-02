@@ -75,11 +75,15 @@ export default {
   background: white;
   border-radius: 2px;
   z-index: 11;
-  display: none;
+  max-width: 400px;
+  min-width: 200px;
+  transform: scale(0);
+  transition: 0.15s ease-in-out;
+  transform-origin: top right;
 }
 
 .user__info.active {
-  display: block;
+  transform: scale(1);
 }
 
 .user__info .info {
