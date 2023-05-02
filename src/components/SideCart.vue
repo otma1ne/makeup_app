@@ -21,7 +21,7 @@
       <div class="cart__footer" v-if="getCartLength > 0">
         <div class="total">
           <h3>Subtotal</h3>
-          <h3>${{ calculateTotalPrice }}</h3>
+          <h3 class="price">${{ calculateTotalPrice }}</h3>
         </div>
         <button class="primary__btn" @click="navigateToCart">View cart</button>
       </div>
@@ -135,12 +135,18 @@ export default {
 .side__cart .cart__footer .total {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .side__cart .cart__footer .total h3 {
   font-weight: 400;
   font-size: 16px;
   color: black;
+}
+
+.side__cart .cart__footer .total .price {
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .side__cart .cart__footer button {

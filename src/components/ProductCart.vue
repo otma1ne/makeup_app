@@ -42,15 +42,16 @@ export default {
 <style scoped>
 .prodcut {
   position: relative;
-  padding: 15px 30px 15px 20px;
-  display: flex;
-  gap: 20px;
+  padding: 15px 30px 15px 15px;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 10px;
   border-bottom: 1px solid #f1f1f1;
 }
 
 .prodcut svg {
   position: absolute;
-  right: 10px;
+  right: 15px;
   top: 10px;
   fill: var(--textColor);
   cursor: pointer;
@@ -78,6 +79,11 @@ export default {
 
 .prodcut .details .name {
   font-size: 14px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* start showing ellipsis when 3rd line is reached */
+  white-space: pre-wrap;
 }
 
 .prodcut .quantity {

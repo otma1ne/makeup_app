@@ -131,7 +131,7 @@
               </div>
             </div>
           </div>
-          <div class="empty__review" v-else>No review</div>
+          <div class="empty__review" v-else>No Reviews</div>
           <form @submit="addReview">
             <div class="input__labled">
               <div class="label">Your rating</div>

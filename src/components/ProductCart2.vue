@@ -76,7 +76,7 @@ export default {
 <style scoped>
 .product {
   position: relative;
-  padding: 20px;
+  padding: 20px 15px;
   border-bottom: 1px solid #f1f1f1;
   display: flex;
   flex-wrap: wrap;
@@ -93,9 +93,10 @@ export default {
   cursor: pointer;
 }
 .product .product__details {
-  display: flex;
+  display: grid;
+  grid-template-columns: 80px 1fr;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .product .product__details .img__container {
@@ -115,6 +116,14 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.product .product__details .info .name {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* start showing ellipsis when 3rd line is reached */
+  white-space: pre-wrap;
 }
 
 .product .product__details .info .price {
