@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const apiClient = axios.create({
-  baseURL: "https://diamond-closed-scarer.glitch.me",
+  baseURL: "https://make-up-backend.onrender.com",
   withCredentials: true,
   headers: {
     Accept: "application/json",
